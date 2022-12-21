@@ -127,10 +127,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Conway%27s Game of Life.cpp" />
+    <ClCompile Include="logic.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\game.lif" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="logic.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

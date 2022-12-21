@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="34840554-384a-407f-afee-c1c34261c423" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.vs/Conway's Game of Life/FileContentIndex/2c325e4d-7df0-4f4b-b7a6-95fc61103907.vsidx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vs/Conway's Game of Life/FileContentIndex/8ce61c1a-1920-4100-aa5a-965ae2c2064e.vsidx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vs/Conway's Game of Life/FileContentIndex/dc37c693-e604-4e11-b95b-89ec76fcd6d2.vsidx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vs/Conway's Game of Life/FileContentIndex/fb3ec5fc-ed1f-4a63-8167-f7f77c2b2ab1.vsidx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vs/Conway's Game of Life/v17/.suo" beforeDir="false" afterPath="$PROJECT_DIR$/.vs/Conway's Game of Life/v17/.suo" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vs/Conway's Game of Life/v17/Browse.VC.db" beforeDir="false" afterPath="$PROJECT_DIR$/.vs/Conway's Game of Life/v17/Browse.VC.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Conway's Game of Life/Conway's Game of Life.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Conway's Game of Life/Conway's Game of Life.vcxproj" beforeDir="false" afterPath="$PROJECT_DIR$/Conway's Game of Life/Conway's Game of Life.vcxproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Conway's Game of Life/Conway's Game of Life.vcxproj.filters" beforeDir="false" afterPath="$PROJECT_DIR$/Conway's Game of Life/Conway's Game of Life.vcxproj.filters" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Conway's Game of Life/x64/Debug/Conway's Game of Life.ilk" beforeDir="false" afterPath="$PROJECT_DIR$/Conway's Game of Life/x64/Debug/Conway's Game of Life.ilk" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Conway's Game of Life/x64/Debug/Conway's Game of Life.log" beforeDir="false" afterPath="$PROJECT_DIR$/Conway's Game of Life/x64/Debug/Conway's Game of Life.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Conway's Game of Life/x64/Debug/Conway's Game of Life.obj" beforeDir="false" afterPath="$PROJECT_DIR$/Conway's Game of Life/x64/Debug/Conway's Game of Life.obj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Conway's Game of Life/x64/Debug/Conway's.6d80e216.tlog/CL.command.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/Conway's Game of Life/x64/Debug/Conway's.6d80e216.tlog/CL.command.1.tlog" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Conway's Game of Life/x64/Debug/Conway's.6d80e216.tlog/CL.read.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/Conway's Game of Life/x64/Debug/Conway's.6d80e216.tlog/CL.read.1.tlog" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Conway's Game of Life/x64/Debug/Conway's.6d80e216.tlog/CL.write.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/Conway's Game of Life/x64/Debug/Conway's.6d80e216.tlog/CL.write.1.tlog" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Conway's Game of Life/x64/Debug/Conway's.6d80e216.tlog/link.command.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/Conway's Game of Life/x64/Debug/Conway's.6d80e216.tlog/link.command.1.tlog" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Conway's Game of Life/x64/Debug/Conway's.6d80e216.tlog/link.read.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/Conway's Game of Life/x64/Debug/Conway's.6d80e216.tlog/link.read.1.tlog" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Conway's Game of Life/x64/Debug/Conway's.6d80e216.tlog/link.write.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/Conway's Game of Life/x64/Debug/Conway's.6d80e216.tlog/link.write.1.tlog" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Conway's Game of Life/x64/Debug/vc143.idb" beforeDir="false" afterPath="$PROJECT_DIR$/Conway's Game of Life/x64/Debug/vc143.idb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Conway's Game of Life/x64/Debug/vc143.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Conway's Game of Life/x64/Debug/vc143.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/x64/Debug/Conway's Game of Life.exe" beforeDir="false" afterPath="$PROJECT_DIR$/x64/Debug/Conway's Game of Life.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/x64/Debug/Conway's Game of Life.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/x64/Debug/Conway's Game of Life.pdb" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="2JDKdYRQmfj32Lc4AHTF8rbebOq" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "D:/Documents/GitHub/Conway-s-Game-of-Life"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="34840554-384a-407f-afee-c1c34261c423" name="Changes" comment="" />
+      <created>1671607301946</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1671607301946</updated>
+      <workItem from="1671607303199" duration="14000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

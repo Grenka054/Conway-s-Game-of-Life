@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/pics">
+        <file>pics/cell_alive.png</file>
+        <file>pics/cell_dead.png</file>
+    </qresource>
+</RCC>
