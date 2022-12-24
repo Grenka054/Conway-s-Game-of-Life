@@ -40,7 +40,6 @@ void GameWindow::createLayout(int x_count, int y_count)
     QPixmap pix(":/pics/pics/cell_dead.png");
 
     QGridLayout* gridlayout = this->ui->gridLayout;
-    gridlayout->maximumSize().setWidth(200);
     gridlayout->setSizeConstraint(QLayout::SetMaximumSize);
     QVector<QVector<QLabel*>> labels2DVector(y_count);
     for (int i = 0; i < y_count; i++){
@@ -56,12 +55,16 @@ void GameWindow::createLayout(int x_count, int y_count)
 }
 
 void GameWindow::changeLabelValue(int x, int y, int value){
-    QPixmap pix_dead(":/pics/pics/cell_dead.png");
-    QPixmap pix_alive(":/pics/pics/cell_alive.png");
     QLayout *layout = this->ui->gridLayout;
     QLabel *label = dynamic_cast<QLabel*>(layout->itemAt(y * this->field->get_w() + x)->widget());
-    if (value == '1') label->setPixmap(pix_alive);
-    else label->setPixmap(pix_dead);
+    if (value == '1'){
+        QPixmap pix_alive(":/pics/pics/cell_alive.png");
+        label->setPixmap(pix_alive);
+    }
+    else{
+        QPixmap pix_dead(":/pics/pics/cell_dead.png");
+        label->setPixmap(pix_dead);
+    }
 }
 
 GameWindow::GameWindow(QWidget *parent)
@@ -69,8 +72,9 @@ GameWindow::GameWindow(QWidget *parent)
     , ui(new Ui::GameWindow)
 {
     ui->setupUi(this);
-//    int x_count = 50, y_count = 60; // 3200 cells
-    int x_count = 10, y_count = 10;
+    int x_count, y_count;
+    x_count = 50, y_count = 60; // 3200 cells
+//    x_count = 20, y_count = 20;
     createLayout(x_count, y_count);
     Field *field = createBackEnd(x_count, y_count);
     this->field = field;
@@ -80,6 +84,7 @@ GameWindow::GameWindow(QWidget *parent)
 
 GameWindow::~GameWindow()
 {
+    delete field;
     delete ui;
 }
 
@@ -107,8 +112,8 @@ void GameWindow::mousePressEvent(QMouseEvent* event) {
 void GameWindow::on_nextButton_clicked()
 {
     this->field->updateState(1);
-    for (int y = 0; y < this->field->get_w(); ++y) {
-        for (int x = 0; x < this->field->get_h(); ++x) {
+    for (int y = 0; y < this->field->get_h(); ++y) {
+        for (int x = 0; x < this->field->get_w(); ++x) {
             this->changeLabelValue(x, y, this->field->getField()[y][x]);
         }
     }

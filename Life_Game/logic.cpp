@@ -18,7 +18,7 @@ Field::Field(int W, int H, Rules *rules) {
 	h = H;
 	w = W;
     this->rules = rules;
-	field = new char* [H];
+    field = new char* [H];
 	for (int i = 0; i < H; i++)
 	{
 		field[i] = new char[W];
@@ -87,24 +87,23 @@ int Field::get_w(){
 
 void Field::updateState(int iter_num) {
     for (int iter = 0; iter < iter_num; ++iter) {
-        char** new_field = new char* [this->w];
+        char** new_field = new char* [this->h];
         Rules* rules = this->rules;
-        for (int i = 0; i < this->h; i++)
+
+        for (int i = 0; i < this->h; i++){
             new_field[i] = new char[this->w];
-
-        for (int i = 0; i < this->h; i++)
-            for (int j = 0; j < this->w; j++) {
+            for (int j = 0; j < this->w; j++)
                 new_field[i][j] = '0';
-            }
+        }
 
-        for (int x = 0; x < this->w; x++)
+        for (short x = 0; x < this->w; x++)
         {
-            for (int y = 0; y < this->h; y++)
+            for (short y = 0; y < this->h; y++)
             {
                 int neighbour_count = 0;
-                for (int i = -1; i <= 1; i++)
+                for (signed char i = -1; i <= 1; i++)
                 {
-                    for (int j = -1; j <= 1; j++)
+                    for (signed char j = -1; j <= 1; j++)
                     {
                         if (!i && !j) continue;
                         int neighbour_x = x + i, neighbour_y = y + j;
@@ -117,7 +116,7 @@ void Field::updateState(int iter_num) {
                         if (neighbour == '1') ++neighbour_count;
                     }
                 }
-                for (int i = 0; i < rules->survive.size(); i++)
+                for (char i = 0; i < rules->survive.size(); i++)
                 {
                     if (neighbour_count == rules->survive[i] && field[y][x] == '1')
                     {
@@ -125,11 +124,14 @@ void Field::updateState(int iter_num) {
                         continue;
                     }
                 }
-                for (int i = 0; i < rules->born.size(); i++)
+                for (char i = 0; i < rules->born.size(); i++)
                 {
                     if (neighbour_count == rules->born[i]) new_field[y][x] = '1';
                 }
             }
+        }
+        for (short i = 0; i < this->get_h(); ++i) {
+            delete[] field[i];
         }
         delete[] field;
         field = new_field;
