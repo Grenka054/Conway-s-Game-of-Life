@@ -14,9 +14,8 @@
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QMainWindow>
-#include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
-#include <QtWidgets/QStatusBar>
+#include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
@@ -30,23 +29,26 @@ public:
     QHBoxLayout *mainLayout;
     QGridLayout *gridLayout;
     QVBoxLayout *verticalLayout;
+    QSpacerItem *verticalSpacer;
     QPushButton *nextButton;
     QPushButton *autoButton;
-    QMenuBar *menubar;
-    QStatusBar *statusbar;
+    QPushButton *clearButton;
+    QSpacerItem *verticalSpacer_2;
 
     void setupUi(QMainWindow *GameWindow)
     {
         if (GameWindow->objectName().isEmpty())
             GameWindow->setObjectName("GameWindow");
-        GameWindow->resize(926, 310);
+        GameWindow->resize(1000, 300);
+        QSizePolicy sizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(GameWindow->sizePolicy().hasHeightForWidth());
+        GameWindow->setSizePolicy(sizePolicy);
         GameWindow->setAnimated(false);
         centralwidget = new QWidget(GameWindow);
         centralwidget->setObjectName("centralwidget");
         centralwidget->setEnabled(true);
-        QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
-        sizePolicy.setHorizontalStretch(0);
-        sizePolicy.setVerticalStretch(0);
         sizePolicy.setHeightForWidth(centralwidget->sizePolicy().hasHeightForWidth());
         centralwidget->setSizePolicy(sizePolicy);
         horizontalLayoutWidget = new QWidget(centralwidget);
@@ -59,37 +61,48 @@ public:
         gridLayout = new QGridLayout();
         gridLayout->setSpacing(0);
         gridLayout->setObjectName("gridLayout");
-        gridLayout->setSizeConstraint(QLayout::SetFixedSize);
+        gridLayout->setSizeConstraint(QLayout::SetDefaultConstraint);
         gridLayout->setContentsMargins(0, 15, 15, 15);
 
         mainLayout->addLayout(gridLayout);
 
         verticalLayout = new QVBoxLayout();
         verticalLayout->setObjectName("verticalLayout");
-        verticalLayout->setSizeConstraint(QLayout::SetFixedSize);
+        verticalLayout->setSizeConstraint(QLayout::SetMinimumSize);
         verticalLayout->setContentsMargins(15, 15, 15, 15);
+        verticalSpacer = new QSpacerItem(20, 60, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        verticalLayout->addItem(verticalSpacer);
+
         nextButton = new QPushButton(horizontalLayoutWidget);
         nextButton->setObjectName("nextButton");
+        sizePolicy.setHeightForWidth(nextButton->sizePolicy().hasHeightForWidth());
+        nextButton->setSizePolicy(sizePolicy);
 
         verticalLayout->addWidget(nextButton);
 
         autoButton = new QPushButton(horizontalLayoutWidget);
         autoButton->setObjectName("autoButton");
+        sizePolicy.setHeightForWidth(autoButton->sizePolicy().hasHeightForWidth());
+        autoButton->setSizePolicy(sizePolicy);
 
         verticalLayout->addWidget(autoButton);
+
+        clearButton = new QPushButton(horizontalLayoutWidget);
+        clearButton->setObjectName("clearButton");
+
+        verticalLayout->addWidget(clearButton);
+
+        verticalSpacer_2 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        verticalLayout->addItem(verticalSpacer_2);
 
 
         mainLayout->addLayout(verticalLayout);
 
-        mainLayout->setStretch(0, 5);
+        mainLayout->setStretch(0, 12);
+        mainLayout->setStretch(1, 1);
         GameWindow->setCentralWidget(centralwidget);
-        menubar = new QMenuBar(GameWindow);
-        menubar->setObjectName("menubar");
-        menubar->setGeometry(QRect(0, 0, 926, 22));
-        GameWindow->setMenuBar(menubar);
-        statusbar = new QStatusBar(GameWindow);
-        statusbar->setObjectName("statusbar");
-        GameWindow->setStatusBar(statusbar);
 
         retranslateUi(GameWindow);
 
@@ -100,7 +113,8 @@ public:
     {
         GameWindow->setWindowTitle(QCoreApplication::translate("GameWindow", "GameWindow", nullptr));
         nextButton->setText(QCoreApplication::translate("GameWindow", "Next", nullptr));
-        autoButton->setText(QCoreApplication::translate("GameWindow", "Auto", nullptr));
+        autoButton->setText(QCoreApplication::translate("GameWindow", "Start", nullptr));
+        clearButton->setText(QCoreApplication::translate("GameWindow", "Clear", nullptr));
     } // retranslateUi
 
 };

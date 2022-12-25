@@ -9,13 +9,15 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    logic.cpp \
+    field.cpp \
     main.cpp \
-    gamewindow.cpp
+    gamewindow.cpp \
+    rules.cpp
 
 HEADERS += \
+    field.h \
     gamewindow.h \
-    logic.h
+    rules.h
 
 FORMS += \
     gamewindow.ui
@@ -27,3 +29,6 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 RESOURCES += \
     pic.qrc
+
+DISTFILES += \
+    game.lif
