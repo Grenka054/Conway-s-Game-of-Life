@@ -4,7 +4,19 @@
 #include <QMainWindow>
 #include <QLabel>
 #include <QTimer>
+#include <QGridLayout>
+#include <QPushButton>
+#include <QLabel>
+#include <QMainWindow>
+#include <QPixmap>
+#include <QDebug>
+#include <QFileDialog>
+#include <QMouseEvent>
+#include <QMessageBox>
 #include "field.h"
+#include <QTimer>
+#include "parser.h"
+
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class GameWindow; }
@@ -17,15 +29,16 @@ class GameWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    GameWindow(int x_count, int y_count, Field* field, QWidget *parent = nullptr);
+    GameWindow(Field* field, QWidget *parent = nullptr);
     ~GameWindow();
     void mouseMoveEvent(QMouseEvent* event) override;
     void mousePressEvent(QMouseEvent* event) override;
 
+public slots:
+    void newGeneration(int count=1);
+
 private slots:
     void on_autoButton_clicked();
-
-    void newGeneration();
 
     void on_clearButton_clicked();
 
@@ -34,6 +47,10 @@ private slots:
     void on_tickButton_clicked();
 
     void on_dumpButton_clicked();
+
+    void on_openButton_clicked();
+
+    void on_helpButton_clicked();
 
 private:
     void createLayout(int x_count, int y_count);
@@ -44,7 +61,8 @@ private:
     QPixmap pix_alive;
     QPixmap pix_dead;
     bool autoUpdateOn;
+    bool ticksOn;
     Field *field;
-    QVector<QVector<QLabel*>>* labels;
+    QList<QList<QLabel*>>* labels;
 };
 #endif // GAMEWINDOW_H

@@ -34,28 +34,29 @@ public:
     QSpacerItem *verticalSpacer;
     QVBoxLayout *verticalLayout_2;
     QSpacerItem *verticalSpacer_2;
+    QWidget *buttonsWidget;
     QFormLayout *formLayout_3;
     QPushButton *tickButton;
     QLineEdit *tickLine;
     QPushButton *autoButton;
-    QPushButton *exitButton;
-    QPushButton *clearButton;
-    QPushButton *dumpButton;
+    QPushButton *openButton;
     QPushButton *helpButton;
-    QLineEdit *dumpLine;
+    QPushButton *exitButton;
+    QPushButton *dumpButton;
+    QPushButton *clearButton;
     QSpacerItem *verticalSpacer_4;
 
     void setupUi(QMainWindow *GameWindow)
     {
         if (GameWindow->objectName().isEmpty())
             GameWindow->setObjectName("GameWindow");
-        GameWindow->resize(1000, 485);
+        GameWindow->resize(1000, 450);
         QSizePolicy sizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
         sizePolicy.setHeightForWidth(GameWindow->sizePolicy().hasHeightForWidth());
         GameWindow->setSizePolicy(sizePolicy);
-        GameWindow->setMinimumSize(QSize(240, 240));
+        GameWindow->setMinimumSize(QSize(240, 120));
         GameWindow->setAnimated(false);
         centralwidget = new QWidget(GameWindow);
         centralwidget->setObjectName("centralwidget");
@@ -71,15 +72,15 @@ public:
         mainLayout->setSizeConstraint(QLayout::SetFixedSize);
         mainLayout->setContentsMargins(0, 0, 30, 0);
         verticalLayout = new QVBoxLayout();
-        verticalLayout->setSpacing(0);
+        verticalLayout->setSpacing(6);
         verticalLayout->setObjectName("verticalLayout");
         verticalLayout->setSizeConstraint(QLayout::SetDefaultConstraint);
-        verticalLayout->setContentsMargins(0, 0, 0, 0);
+        verticalLayout->setContentsMargins(15, 0, 0, 0);
         gridLayout = new QGridLayout();
         gridLayout->setSpacing(0);
         gridLayout->setObjectName("gridLayout");
         gridLayout->setSizeConstraint(QLayout::SetMaximumSize);
-        gridLayout->setContentsMargins(15, 15, 15, 15);
+        gridLayout->setContentsMargins(0, 15, 15, 15);
 
         verticalLayout->addLayout(gridLayout);
 
@@ -98,12 +99,14 @@ public:
 
         verticalLayout_2->addItem(verticalSpacer_2);
 
-        formLayout_3 = new QFormLayout();
+        buttonsWidget = new QWidget(horizontalLayoutWidget);
+        buttonsWidget->setObjectName("buttonsWidget");
+        formLayout_3 = new QFormLayout(buttonsWidget);
         formLayout_3->setObjectName("formLayout_3");
         formLayout_3->setSizeConstraint(QLayout::SetFixedSize);
         formLayout_3->setFieldGrowthPolicy(QFormLayout::FieldsStayAtSizeHint);
         formLayout_3->setHorizontalSpacing(25);
-        tickButton = new QPushButton(horizontalLayoutWidget);
+        tickButton = new QPushButton(buttonsWidget);
         tickButton->setObjectName("tickButton");
         QSizePolicy sizePolicy1(QSizePolicy::Maximum, QSizePolicy::Fixed);
         sizePolicy1.setHorizontalStretch(0);
@@ -114,7 +117,7 @@ public:
 
         formLayout_3->setWidget(0, QFormLayout::LabelRole, tickButton);
 
-        tickLine = new QLineEdit(horizontalLayoutWidget);
+        tickLine = new QLineEdit(buttonsWidget);
         tickLine->setObjectName("tickLine");
         sizePolicy1.setHeightForWidth(tickLine->sizePolicy().hasHeightForWidth());
         tickLine->setSizePolicy(sizePolicy1);
@@ -122,46 +125,46 @@ public:
 
         formLayout_3->setWidget(0, QFormLayout::FieldRole, tickLine);
 
-        autoButton = new QPushButton(horizontalLayoutWidget);
+        autoButton = new QPushButton(buttonsWidget);
         autoButton->setObjectName("autoButton");
         QSizePolicy sizePolicy2(QSizePolicy::Minimum, QSizePolicy::Fixed);
         sizePolicy2.setHorizontalStretch(0);
         sizePolicy2.setVerticalStretch(0);
         sizePolicy2.setHeightForWidth(autoButton->sizePolicy().hasHeightForWidth());
         autoButton->setSizePolicy(sizePolicy2);
+        QFont font;
+        font.setFamilies({QString::fromUtf8("Segoe UI")});
+        autoButton->setFont(font);
 
         formLayout_3->setWidget(2, QFormLayout::LabelRole, autoButton);
 
-        exitButton = new QPushButton(horizontalLayoutWidget);
-        exitButton->setObjectName("exitButton");
+        openButton = new QPushButton(buttonsWidget);
+        openButton->setObjectName("openButton");
 
-        formLayout_3->setWidget(3, QFormLayout::FieldRole, exitButton);
+        formLayout_3->setWidget(3, QFormLayout::LabelRole, openButton);
 
-        clearButton = new QPushButton(horizontalLayoutWidget);
-        clearButton->setObjectName("clearButton");
-
-        formLayout_3->setWidget(1, QFormLayout::LabelRole, clearButton);
-
-        dumpButton = new QPushButton(horizontalLayoutWidget);
-        dumpButton->setObjectName("dumpButton");
-
-        formLayout_3->setWidget(3, QFormLayout::LabelRole, dumpButton);
-
-        helpButton = new QPushButton(horizontalLayoutWidget);
+        helpButton = new QPushButton(buttonsWidget);
         helpButton->setObjectName("helpButton");
 
-        formLayout_3->setWidget(1, QFormLayout::FieldRole, helpButton);
+        formLayout_3->setWidget(3, QFormLayout::FieldRole, helpButton);
 
-        dumpLine = new QLineEdit(horizontalLayoutWidget);
-        dumpLine->setObjectName("dumpLine");
-        sizePolicy1.setHeightForWidth(dumpLine->sizePolicy().hasHeightForWidth());
-        dumpLine->setSizePolicy(sizePolicy1);
-        dumpLine->setMaximumSize(QSize(75, 16777215));
+        exitButton = new QPushButton(buttonsWidget);
+        exitButton->setObjectName("exitButton");
 
-        formLayout_3->setWidget(2, QFormLayout::FieldRole, dumpLine);
+        formLayout_3->setWidget(4, QFormLayout::FieldRole, exitButton);
+
+        dumpButton = new QPushButton(buttonsWidget);
+        dumpButton->setObjectName("dumpButton");
+
+        formLayout_3->setWidget(4, QFormLayout::LabelRole, dumpButton);
+
+        clearButton = new QPushButton(buttonsWidget);
+        clearButton->setObjectName("clearButton");
+
+        formLayout_3->setWidget(2, QFormLayout::FieldRole, clearButton);
 
 
-        verticalLayout_2->addLayout(formLayout_3);
+        verticalLayout_2->addWidget(buttonsWidget);
 
         verticalSpacer_4 = new QSpacerItem(20, 10, QSizePolicy::Minimum, QSizePolicy::Expanding);
 
@@ -194,25 +197,25 @@ public:
 #endif // QT_CONFIG(tooltip)
         autoButton->setText(QCoreApplication::translate("GameWindow", "Start", nullptr));
 #if QT_CONFIG(tooltip)
-        exitButton->setToolTip(QCoreApplication::translate("GameWindow", "Close app", nullptr));
+        openButton->setToolTip(QCoreApplication::translate("GameWindow", "Load universe from file", nullptr));
 #endif // QT_CONFIG(tooltip)
-        exitButton->setText(QCoreApplication::translate("GameWindow", "Exit", nullptr));
-#if QT_CONFIG(tooltip)
-        clearButton->setToolTip(QCoreApplication::translate("GameWindow", "Clear universe", nullptr));
-#endif // QT_CONFIG(tooltip)
-        clearButton->setText(QCoreApplication::translate("GameWindow", "Clear", nullptr));
-#if QT_CONFIG(tooltip)
-        dumpButton->setToolTip(QCoreApplication::translate("GameWindow", "Save universe to file", nullptr));
-#endif // QT_CONFIG(tooltip)
-        dumpButton->setText(QCoreApplication::translate("GameWindow", "Dump", nullptr));
+        openButton->setText(QCoreApplication::translate("GameWindow", "Open", nullptr));
 #if QT_CONFIG(tooltip)
         helpButton->setToolTip(QCoreApplication::translate("GameWindow", "Show help", nullptr));
 #endif // QT_CONFIG(tooltip)
         helpButton->setText(QCoreApplication::translate("GameWindow", "Help", nullptr));
 #if QT_CONFIG(tooltip)
-        dumpLine->setToolTip(QCoreApplication::translate("GameWindow", "Path to file for saving university", nullptr));
+        exitButton->setToolTip(QCoreApplication::translate("GameWindow", "Close app", nullptr));
 #endif // QT_CONFIG(tooltip)
-        dumpLine->setPlaceholderText(QCoreApplication::translate("GameWindow", "Output file", nullptr));
+        exitButton->setText(QCoreApplication::translate("GameWindow", "Exit", nullptr));
+#if QT_CONFIG(tooltip)
+        dumpButton->setToolTip(QCoreApplication::translate("GameWindow", "Save universe to file", nullptr));
+#endif // QT_CONFIG(tooltip)
+        dumpButton->setText(QCoreApplication::translate("GameWindow", "Save", nullptr));
+#if QT_CONFIG(tooltip)
+        clearButton->setToolTip(QCoreApplication::translate("GameWindow", "Clear universe", nullptr));
+#endif // QT_CONFIG(tooltip)
+        clearButton->setText(QCoreApplication::translate("GameWindow", "Clear", nullptr));
     } // retranslateUi
 
 };

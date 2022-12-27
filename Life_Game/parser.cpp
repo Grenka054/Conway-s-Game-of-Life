@@ -1,5 +1,10 @@
 #include "parser.h"
  #include <QProcess>
+
+Parser::Parser() {
+    is_offline = false;
+}
+
 bool Parser::parse(const int argc, char* argv[], std::string& input_file, std::string& output_file, int& iterations_num) {
 	input_file = "", output_file = "";
 	iterations_num = 0;
@@ -40,10 +45,15 @@ bool Parser::parse(const int argc, char* argv[], std::string& input_file, std::s
 		std::cerr << "ERROR! Invalid arguments" << std::endl;
 		exit(1);
 	}
+    is_offline = true;
 	return true;
 }
 
-void Parser::input_read(const std::string input, std::string& name, Rules** rules, int& x_count, int& y_count,
+bool Parser::get_is_offline(){
+    return is_offline;
+}
+
+void Parser::input_read(const std::string input, std::string* name, Rules** rules, int& x_count, int& y_count,
 	std::set<std::tuple<int, int>>& tuples) {
 	std::ifstream fin(input);
 	bool rules_got = false, name_got = false;
@@ -67,7 +77,7 @@ void Parser::input_read(const std::string input, std::string& name, Rules** rule
 
 		// NAME
 		if (buf[1] == 'N') {
-			name = buf.erase(0, 3);
+            *name = buf.erase(0, 3);
 			name_got = true;
 		}
 
@@ -113,7 +123,7 @@ void Parser::input_read(const std::string input, std::string& name, Rules** rule
 	fin.close();
 	if (!name_got) {
 		std::cerr << "WARNING! The name hasn't founded" << std::endl;
-		name = "No name";
+        *name = "No name";
 	}
 	if (!rules_got) {
 		std::cerr << "WARNING! The rules hasn't founded" << std::endl;
@@ -122,14 +132,14 @@ void Parser::input_read(const std::string input, std::string& name, Rules** rule
     fin.close();
 }
 
-Field Parser::create_field(const int argc, char* argv[]) {
-	std::string input_file, output_file, name;
+Field* Parser::create_field(const int argc, char* argv[]) {
+    std::string input_file, output_file, name = "No name";
     Rules* rules = nullptr;
 	int iterations_num;
 	int x_count = 20, y_count = 20;
 	std::set<std::tuple<int, int>> tuples;
-	if (Parser::parse(argc, argv, input_file, output_file, iterations_num))
-        Parser::input_read(input_file, name, &rules, x_count, y_count, tuples);
+    if (this->parse(argc, argv, input_file, output_file, iterations_num))
+        this->input_read(input_file, &name, &rules, x_count, y_count, tuples);
     else rules = new Rules();
-    return Field(x_count, y_count, rules, tuples, name, output_file);
+    return new Field(x_count, y_count, rules, tuples, name, output_file, iterations_num);
 }
