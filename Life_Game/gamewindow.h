@@ -29,6 +29,8 @@ private slots:
 
     void on_clearButton_clicked();
 
+    void on_exitButton_clicked();
+
 private:
     void createLayout(int x_count, int y_count);
     void changeLabelValue(int x, int y, int value);

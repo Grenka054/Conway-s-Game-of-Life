@@ -1,11 +1,11 @@
 #ifndef FIELD_H
 #define FIELD_H
-#include <vector>
+#include <set>
 #include "rules.h"
 
 class Field {
 public:
-    Field(int W, int H, Rules *rules, std::vector<std::tuple<int, int>> tuples);
+    Field(int W, int H, Rules *rules, std::set<std::tuple<int, int>> tuples);
     ~Field();
     void printField();
     char** getField();

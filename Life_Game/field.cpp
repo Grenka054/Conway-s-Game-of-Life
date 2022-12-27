@@ -1,11 +1,20 @@
 #include "field.h"
-#include <vector>
+#include <set>
 
 void Field::setCell(int x, int y, char value){
     this->field[y][x] = value;
 }
 
-Field::Field(int W, int H, Rules *rules, std::vector<std::tuple<int, int>> tuples) {
+void normalize_coordinates(int& x, int& y, const int w, const int h){
+    x %= w;
+    y %= h;
+    if (x < 0) x = w + x;
+    if (y < 0) y = h + y;
+    if (x >= w) x = 0;
+    if (y >= h) y = 0;
+}
+
+Field::Field(int W, int H, Rules *rules, std::set<std::tuple<int, int>> tuples) {
     h = H;
     w = W;
     this->rules = rules;
@@ -16,8 +25,11 @@ Field::Field(int W, int H, Rules *rules, std::vector<std::tuple<int, int>> tuple
         for (int j = 0; j < W; j++)
             field[i][j] = '0';
     }
-    for (std::tuple<int, int> tuple : tuples)
-        field[std::get<0>(tuple)][std::get<1>(tuple)] = '1';
+    for (std::tuple<int, int> tuple : tuples){
+        int x = std::get<0>(tuple), y = std::get<1>(tuple);
+        normalize_coordinates(x, y, h, w);
+        field[x][y] = '1';
+    }
 }
 
 Field::~Field() {
@@ -56,10 +68,7 @@ void Field::updateState(int iter_num) {
                     for (signed char j = -1; j <= 1; j++) {
                         if (!i && !j) continue;
                         int neighbour_x = x + i, neighbour_y = y + j;
-                        if (neighbour_x < 0) neighbour_x = this->w - 1;
-                        if (neighbour_y < 0) neighbour_y = this->h - 1;
-                        if (neighbour_x >= this->w) neighbour_x = 0;
-                        if (neighbour_y >= this->h) neighbour_y = 0;
+                        normalize_coordinates(neighbour_x, neighbour_y, this->w, this->h);
 
                         int neighbour = field[neighbour_y][neighbour_x];
                         if (neighbour == '1') ++neighbour_count;

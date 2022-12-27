@@ -1,9 +1,16 @@
 #include "rules.h"
 #include <vector>
 
-Rules::Rules(std::vector<char> arr1, std::vector<char> arr2) {
-    this->born = arr1;
-    this->survive = arr2;
+Rules::Rules() {
+    std::vector<char> born{ 3 };
+    std::vector<char> survive{ 2, 3 };
+    this->born = born;
+    this->survive = survive;
+}
+
+Rules::Rules(std::vector<char> born, std::vector<char> survive) {
+    this->born = born;
+    this->survive = survive;
 }
 
 std::vector<char> Rules::get_born(){

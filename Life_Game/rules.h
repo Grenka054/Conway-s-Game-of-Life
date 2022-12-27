@@ -4,8 +4,8 @@
 
 class Rules {
 public:
-    Rules(std::vector<char> arr1, std::vector<char> arr2);
-    ~Rules();
+    Rules();
+    Rules(std::vector<char> born, std::vector<char> survive);
     std::vector<char> get_born();
     std::vector<char> get_survive();
 private:

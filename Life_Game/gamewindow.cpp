@@ -117,3 +117,9 @@ void GameWindow::on_clearButton_clicked()
     if (autoUpdateOn)
         emit on_autoButton_clicked();
 }
+
+void GameWindow::on_exitButton_clicked()
+{
+    exit(0);
+}
+
