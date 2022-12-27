@@ -1,7 +1,7 @@
 #include "field.h"
-#include <set>
+#include <stdexcept>
 
-void Field::setCell(int x, int y, char value){
+void Field::set_cell(int x, int y, char value){
     this->field[y][x] = value;
 }
 
@@ -14,21 +14,24 @@ void normalize_coordinates(int& x, int& y, const int w, const int h){
     if (y >= h) y = 0;
 }
 
-Field::Field(int W, int H, Rules *rules, std::set<std::tuple<int, int>> tuples) {
+Field::Field(int W, int H, Rules *rules, std::set<std::tuple<int, int>> tuples, std::string name, std::string output_file) {
+    if (!rules) throw std::invalid_argument("Rules are not defined");
     h = H;
     w = W;
+    this->name = name;
+    this->output_file = output_file;
     this->rules = rules;
     field = new char* [H];
     for (int i = 0; i < H; i++)
     {
         field[i] = new char[W];
         for (int j = 0; j < W; j++)
-            field[i][j] = '0';
+            field[i][j] = 0;
     }
     for (std::tuple<int, int> tuple : tuples){
-        int x = std::get<0>(tuple), y = std::get<1>(tuple);
+        int x = std::get<1>(tuple), y = std::get<0>(tuple);
         normalize_coordinates(x, y, h, w);
-        field[x][y] = '1';
+        field[y][x] = 1;
     }
 }
 
@@ -38,8 +41,13 @@ Field::~Field() {
     delete[] field;
 }
 
-char** Field::getField() {
+char** Field::get_field() {
     return this->field;
+}
+
+Rules* Field::get_rules() {
+    return rules;
+
 }
 
 int Field::get_h(){
@@ -50,7 +58,10 @@ int Field::get_w(){
     return w;
 }
 
-void Field::updateState(int iter_num) {
+std::string Field::get_output_file(){
+    return output_file;
+}
+void Field::update_state(int iter_num) {
     for (int iter = 0; iter < iter_num; ++iter) {
         char** new_field = new char* [this->h];
         Rules* rules = this->rules;
@@ -58,7 +69,7 @@ void Field::updateState(int iter_num) {
         for (int i = 0; i < this->h; i++) {
             new_field[i] = new char[this->w];
             for (int j = 0; j < this->w; j++)
-                new_field[i][j] = '0';
+                new_field[i][j] = 0;
         }
 
         for (short x = 0; x < this->w; x++) {
@@ -71,17 +82,17 @@ void Field::updateState(int iter_num) {
                         normalize_coordinates(neighbour_x, neighbour_y, this->w, this->h);
 
                         int neighbour = field[neighbour_y][neighbour_x];
-                        if (neighbour == '1') ++neighbour_count;
+                        if (neighbour) ++neighbour_count;
                     }
                 }
                 for (char i = 0; i < rules->get_survive().size(); i++) {
-                    if (neighbour_count == rules->get_survive()[i] && field[y][x] == '1') {
-                        new_field[y][x] = '1';
+                    if (neighbour_count == rules->get_survive()[i] && field[y][x]) {
+                        new_field[y][x] = 1;
                         continue;
                     }
                 }
                 for (char i = 0; i < rules->get_born().size(); i++)
-                    if (neighbour_count == rules->get_born()[i]) new_field[y][x] = '1';
+                    if (neighbour_count == rules->get_born()[i]) new_field[y][x] = 1;
             }
         }
 

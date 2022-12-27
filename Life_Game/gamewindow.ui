@@ -160,6 +160,9 @@
              <height>16777215</height>
             </size>
            </property>
+           <property name="toolTip">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:700;&quot;&gt;n&lt;/span&gt; steps of life&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
            <property name="text">
             <string>Tick</string>
            </property>
@@ -179,28 +182,11 @@
              <height>16777215</height>
             </size>
            </property>
-           <property name="text">
-            <string>0</string>
+           <property name="toolTip">
+            <string>Number of ticks</string>
            </property>
-          </widget>
-         </item>
-         <item row="1" column="0">
-          <widget class="QPushButton" name="nextButton">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="text">
-            <string>Next</string>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="1">
-          <widget class="QPushButton" name="clearButton">
-           <property name="text">
-            <string>Clear</string>
+           <property name="placeholderText">
+            <string>Ticks</string>
            </property>
           </widget>
          </item>
@@ -212,29 +198,73 @@
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
+           <property name="toolTip">
+            <string>Start / Stop Life</string>
+           </property>
            <property name="text">
             <string>Start</string>
            </property>
           </widget>
          </item>
-         <item row="2" column="1">
-          <widget class="QPushButton" name="helpButton">
+         <item row="3" column="1">
+          <widget class="QPushButton" name="exitButton">
+           <property name="toolTip">
+            <string>Close app</string>
+           </property>
            <property name="text">
-            <string>Help</string>
+            <string>Exit</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QPushButton" name="clearButton">
+           <property name="toolTip">
+            <string>Clear universe</string>
+           </property>
+           <property name="text">
+            <string>Clear</string>
            </property>
           </widget>
          </item>
          <item row="3" column="0">
           <widget class="QPushButton" name="dumpButton">
+           <property name="toolTip">
+            <string>Save universe to file</string>
+           </property>
            <property name="text">
             <string>Dump</string>
            </property>
           </widget>
          </item>
-         <item row="3" column="1">
-          <widget class="QPushButton" name="exitButton">
+         <item row="1" column="1">
+          <widget class="QPushButton" name="helpButton">
+           <property name="toolTip">
+            <string>Show help</string>
+           </property>
            <property name="text">
-            <string>Exit</string>
+            <string>Help</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="1">
+          <widget class="QLineEdit" name="dumpLine">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>75</width>
+             <height>16777215</height>
+            </size>
+           </property>
+           <property name="toolTip">
+            <string>Path to file for saving university</string>
+           </property>
+           <property name="placeholderText">
+            <string>Output file</string>
            </property>
           </widget>
          </item>
@@ -249,42 +279,6 @@
           <size>
            <width>20</width>
            <height>10</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item>
-        <widget class="QLabel" name="label">
-         <property name="text">
-          <string>Enter your commands here:</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QTextEdit" name="textEdit">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Maximum" vsizetype="Expanding">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>178</width>
-           <height>30</height>
-          </size>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <spacer name="verticalSpacer_3">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>50</height>
           </size>
          </property>
         </spacer>

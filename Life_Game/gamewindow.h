@@ -23,13 +23,17 @@ public:
     void mousePressEvent(QMouseEvent* event) override;
 
 private slots:
-    void on_nextButton_clicked();
     void on_autoButton_clicked();
+
     void newGeneration();
 
     void on_clearButton_clicked();
 
     void on_exitButton_clicked();
+
+    void on_tickButton_clicked();
+
+    void on_dumpButton_clicked();
 
 private:
     void createLayout(int x_count, int y_count);

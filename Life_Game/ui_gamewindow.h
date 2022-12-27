@@ -14,12 +14,10 @@
 #include <QtWidgets/QFormLayout>
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QHBoxLayout>
-#include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QSpacerItem>
-#include <QtWidgets/QTextEdit>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
@@ -39,16 +37,13 @@ public:
     QFormLayout *formLayout_3;
     QPushButton *tickButton;
     QLineEdit *tickLine;
-    QPushButton *nextButton;
-    QPushButton *clearButton;
     QPushButton *autoButton;
-    QPushButton *helpButton;
-    QPushButton *dumpButton;
     QPushButton *exitButton;
+    QPushButton *clearButton;
+    QPushButton *dumpButton;
+    QPushButton *helpButton;
+    QLineEdit *dumpLine;
     QSpacerItem *verticalSpacer_4;
-    QLabel *label;
-    QTextEdit *textEdit;
-    QSpacerItem *verticalSpacer_3;
 
     void setupUi(QMainWindow *GameWindow)
     {
@@ -127,42 +122,43 @@ public:
 
         formLayout_3->setWidget(0, QFormLayout::FieldRole, tickLine);
 
-        nextButton = new QPushButton(horizontalLayoutWidget);
-        nextButton->setObjectName("nextButton");
+        autoButton = new QPushButton(horizontalLayoutWidget);
+        autoButton->setObjectName("autoButton");
         QSizePolicy sizePolicy2(QSizePolicy::Minimum, QSizePolicy::Fixed);
         sizePolicy2.setHorizontalStretch(0);
         sizePolicy2.setVerticalStretch(0);
-        sizePolicy2.setHeightForWidth(nextButton->sizePolicy().hasHeightForWidth());
-        nextButton->setSizePolicy(sizePolicy2);
-
-        formLayout_3->setWidget(1, QFormLayout::LabelRole, nextButton);
-
-        clearButton = new QPushButton(horizontalLayoutWidget);
-        clearButton->setObjectName("clearButton");
-
-        formLayout_3->setWidget(1, QFormLayout::FieldRole, clearButton);
-
-        autoButton = new QPushButton(horizontalLayoutWidget);
-        autoButton->setObjectName("autoButton");
         sizePolicy2.setHeightForWidth(autoButton->sizePolicy().hasHeightForWidth());
         autoButton->setSizePolicy(sizePolicy2);
 
         formLayout_3->setWidget(2, QFormLayout::LabelRole, autoButton);
 
-        helpButton = new QPushButton(horizontalLayoutWidget);
-        helpButton->setObjectName("helpButton");
+        exitButton = new QPushButton(horizontalLayoutWidget);
+        exitButton->setObjectName("exitButton");
 
-        formLayout_3->setWidget(2, QFormLayout::FieldRole, helpButton);
+        formLayout_3->setWidget(3, QFormLayout::FieldRole, exitButton);
+
+        clearButton = new QPushButton(horizontalLayoutWidget);
+        clearButton->setObjectName("clearButton");
+
+        formLayout_3->setWidget(1, QFormLayout::LabelRole, clearButton);
 
         dumpButton = new QPushButton(horizontalLayoutWidget);
         dumpButton->setObjectName("dumpButton");
 
         formLayout_3->setWidget(3, QFormLayout::LabelRole, dumpButton);
 
-        exitButton = new QPushButton(horizontalLayoutWidget);
-        exitButton->setObjectName("exitButton");
+        helpButton = new QPushButton(horizontalLayoutWidget);
+        helpButton->setObjectName("helpButton");
 
-        formLayout_3->setWidget(3, QFormLayout::FieldRole, exitButton);
+        formLayout_3->setWidget(1, QFormLayout::FieldRole, helpButton);
+
+        dumpLine = new QLineEdit(horizontalLayoutWidget);
+        dumpLine->setObjectName("dumpLine");
+        sizePolicy1.setHeightForWidth(dumpLine->sizePolicy().hasHeightForWidth());
+        dumpLine->setSizePolicy(sizePolicy1);
+        dumpLine->setMaximumSize(QSize(75, 16777215));
+
+        formLayout_3->setWidget(2, QFormLayout::FieldRole, dumpLine);
 
 
         verticalLayout_2->addLayout(formLayout_3);
@@ -170,26 +166,6 @@ public:
         verticalSpacer_4 = new QSpacerItem(20, 10, QSizePolicy::Minimum, QSizePolicy::Expanding);
 
         verticalLayout_2->addItem(verticalSpacer_4);
-
-        label = new QLabel(horizontalLayoutWidget);
-        label->setObjectName("label");
-
-        verticalLayout_2->addWidget(label);
-
-        textEdit = new QTextEdit(horizontalLayoutWidget);
-        textEdit->setObjectName("textEdit");
-        QSizePolicy sizePolicy3(QSizePolicy::Maximum, QSizePolicy::Expanding);
-        sizePolicy3.setHorizontalStretch(0);
-        sizePolicy3.setVerticalStretch(0);
-        sizePolicy3.setHeightForWidth(textEdit->sizePolicy().hasHeightForWidth());
-        textEdit->setSizePolicy(sizePolicy3);
-        textEdit->setMaximumSize(QSize(178, 30));
-
-        verticalLayout_2->addWidget(textEdit);
-
-        verticalSpacer_3 = new QSpacerItem(20, 50, QSizePolicy::Minimum, QSizePolicy::Expanding);
-
-        verticalLayout_2->addItem(verticalSpacer_3);
 
 
         mainLayout->addLayout(verticalLayout_2);
@@ -205,15 +181,38 @@ public:
     void retranslateUi(QMainWindow *GameWindow)
     {
         GameWindow->setWindowTitle(QCoreApplication::translate("GameWindow", "GameWindow", nullptr));
+#if QT_CONFIG(tooltip)
+        tickButton->setToolTip(QCoreApplication::translate("GameWindow", "<html><head/><body><p><span style=\" font-weight:700;\">n</span> steps of life</p></body></html>", nullptr));
+#endif // QT_CONFIG(tooltip)
         tickButton->setText(QCoreApplication::translate("GameWindow", "Tick", nullptr));
-        tickLine->setText(QCoreApplication::translate("GameWindow", "0", nullptr));
-        nextButton->setText(QCoreApplication::translate("GameWindow", "Next", nullptr));
-        clearButton->setText(QCoreApplication::translate("GameWindow", "Clear", nullptr));
+#if QT_CONFIG(tooltip)
+        tickLine->setToolTip(QCoreApplication::translate("GameWindow", "Number of ticks", nullptr));
+#endif // QT_CONFIG(tooltip)
+        tickLine->setPlaceholderText(QCoreApplication::translate("GameWindow", "Ticks", nullptr));
+#if QT_CONFIG(tooltip)
+        autoButton->setToolTip(QCoreApplication::translate("GameWindow", "Start / Stop Life", nullptr));
+#endif // QT_CONFIG(tooltip)
         autoButton->setText(QCoreApplication::translate("GameWindow", "Start", nullptr));
-        helpButton->setText(QCoreApplication::translate("GameWindow", "Help", nullptr));
-        dumpButton->setText(QCoreApplication::translate("GameWindow", "Dump", nullptr));
+#if QT_CONFIG(tooltip)
+        exitButton->setToolTip(QCoreApplication::translate("GameWindow", "Close app", nullptr));
+#endif // QT_CONFIG(tooltip)
         exitButton->setText(QCoreApplication::translate("GameWindow", "Exit", nullptr));
-        label->setText(QCoreApplication::translate("GameWindow", "Enter your commands here:", nullptr));
+#if QT_CONFIG(tooltip)
+        clearButton->setToolTip(QCoreApplication::translate("GameWindow", "Clear universe", nullptr));
+#endif // QT_CONFIG(tooltip)
+        clearButton->setText(QCoreApplication::translate("GameWindow", "Clear", nullptr));
+#if QT_CONFIG(tooltip)
+        dumpButton->setToolTip(QCoreApplication::translate("GameWindow", "Save universe to file", nullptr));
+#endif // QT_CONFIG(tooltip)
+        dumpButton->setText(QCoreApplication::translate("GameWindow", "Dump", nullptr));
+#if QT_CONFIG(tooltip)
+        helpButton->setToolTip(QCoreApplication::translate("GameWindow", "Show help", nullptr));
+#endif // QT_CONFIG(tooltip)
+        helpButton->setText(QCoreApplication::translate("GameWindow", "Help", nullptr));
+#if QT_CONFIG(tooltip)
+        dumpLine->setToolTip(QCoreApplication::translate("GameWindow", "Path to file for saving university", nullptr));
+#endif // QT_CONFIG(tooltip)
+        dumpLine->setPlaceholderText(QCoreApplication::translate("GameWindow", "Output file", nullptr));
     } // retranslateUi
 
 };
