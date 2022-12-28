@@ -6,9 +6,8 @@
 int main(int argc, char* argv[])
 {
     QApplication a(argc, argv);
-    Parser parser;
-    Field* field = parser.create_field(argc, argv);
-    if(parser.get_is_offline()){
+    Field* field = Parser::create_field(argc, argv);
+    if (Parser::is_offline()){
         field->update_state(field->get_ticks_count());
         field->save_to_file();
         return 0;

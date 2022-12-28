@@ -148,8 +148,6 @@ void GameWindow::on_openButton_clicked()
     Rules *rules = nullptr;
     int x_count = 20, y_count = 20;
     std::set<std::tuple<int, int>> tuples;
-    delete rules;
-    rules = nullptr;
     for (int i = 0; i < field->get_h(); ++i)
         for(int j = 0; j < field->get_w(); ++j){
             QLabel *label = dynamic_cast<QLabel*>(ui->gridLayout->itemAt(i * this->field->get_w() + j)->widget());
@@ -157,6 +155,7 @@ void GameWindow::on_openButton_clicked()
         }
 
     Parser::input_read(input_file.toStdString(), &name, &rules, x_count, y_count, tuples);
+    if (name.empty()) return;
     delete field;
     field = new Field(x_count, y_count, rules, tuples, name, "", 0);
     createLayout(x_count, y_count);

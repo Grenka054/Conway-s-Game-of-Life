@@ -2,7 +2,6 @@
  #include <QProcess>
 
 Parser::Parser() {
-    is_offline = false;
 }
 
 bool Parser::parse(const int argc, char* argv[], std::string& input_file, std::string& output_file, int& iterations_num) {
@@ -44,13 +43,13 @@ bool Parser::parse(const int argc, char* argv[], std::string& input_file, std::s
 	if (output_file.empty() || input_file.empty() || iterations_num < 1) {
 		std::cerr << "ERROR! Invalid arguments" << std::endl;
 		exit(1);
-	}
-    is_offline = true;
+    }
 	return true;
 }
 
-bool Parser::get_is_offline(){
-    return is_offline;
+bool Parser::is_offline(){
+    QStringList list = QCoreApplication::arguments();
+    return list.length() > 2;
 }
 
 void Parser::input_read(const std::string input, std::string* name, Rules** rules, int& x_count, int& y_count,
@@ -58,16 +57,32 @@ void Parser::input_read(const std::string input, std::string* name, Rules** rule
 	std::ifstream fin(input);
 	bool rules_got = false, name_got = false;
 	if (!fin) {
-		std::cerr << "ERROR! The file hasn't been opened\n";
-		exit(2);
+        if (!Parser::is_offline()) {
+            QMessageBox messageBox;
+            messageBox.warning(0,"Warning","The file hasn't been opened");
+            messageBox.setFixedSize(500,200);
+        }
+        else {
+            std::cerr << "ERROR! The file hasn't been opened" << std::endl;
+            exit(99);
+        }
 	}
 	std::string buf;
 
 	// HEADER
 	getline(fin, buf);
 	if (buf.compare("#Life 1.06")) {
-		std::cerr << "ERROR! This file type is not supported";
-		exit(99);
+        if (!Parser::is_offline()) {
+            QMessageBox messageBox;
+            messageBox.warning(0,"Warning","This file type is not supported");
+            messageBox.setFixedSize(500,200);
+            *name = "";
+        }
+        else {
+            std::cerr << "ERROR! This file type is not supported" << std::endl;
+            exit(99);
+        }
+        return;
 	}
 	while (!fin.eof()) {
 		getline(fin, buf);
@@ -100,12 +115,13 @@ void Parser::input_read(const std::string input, std::string* name, Rules** rule
 	while (buf.empty() && !fin.eof()) {
 		getline(fin, buf);
 	}
+
 	// FIELD SIZE
 	std::stringstream bufStream(buf);
 	getline(bufStream, buf, ' ');
-	x_count = stoi(buf);
+    y_count = stoi(buf);
 	getline(bufStream, buf, ' ');
-	y_count = stoi(buf);
+    x_count = stoi(buf);
 
 	// ALIVE CELLS
 	while (!fin.eof()) {
@@ -114,21 +130,51 @@ void Parser::input_read(const std::string input, std::string* name, Rules** rule
 		if (!buf.length()) continue;
 		std::stringstream bufStream(buf);
 		getline(bufStream, buf, ' ');
-		x = stoi(buf);
+        y = stoi(buf);
 		getline(bufStream, buf, ' ');
-		y = stoi(buf);
-		if (!std::get<1>(tuples.insert(std::tuple<int, int>(x, y))))
-			std::cerr << "WARNING! Living cells are repetitive" << std::endl;
+        x = stoi(buf);
+        if (!std::get<1>(tuples.insert(std::tuple<int, int>(y, x))))
+            if (!Parser::is_offline()) {
+                QMessageBox messageBox;
+                messageBox.warning(0,"Warning","Living cells are repetitive");
+                messageBox.setFixedSize(500,200);
+            }
+            else std::cerr << "WARNING! Living cells are repetitive" << std::endl;
 	}
 	fin.close();
 	if (!name_got) {
-		std::cerr << "WARNING! The name hasn't founded" << std::endl;
+        if (!Parser::is_offline()) {
+            QMessageBox messageBox;
+            messageBox.warning(0,"Warning","The name hasn't founded");
+            messageBox.setFixedSize(500,200);
+        }
+        else std::cerr << "WARNING! The name hasn't founded" << std::endl;
         *name = "No name";
 	}
 	if (!rules_got) {
-		std::cerr << "WARNING! The rules hasn't founded" << std::endl;
+        if (!Parser::is_offline()) {
+            QMessageBox messageBox;
+            messageBox.warning(0,"Warning","The rules hasn't founded");
+            messageBox.setFixedSize(500,200);
+        }
+        else std::cerr << "WARNING! The rules hasn't founded" << std::endl;
 		*rules = new Rules();
 	}
+    if (x_count * y_count > 3250) {
+        if (!Parser::is_offline()) {
+            QMessageBox messageBox;
+            messageBox.warning(0,"Warning","The field size is too large. The number of cells is limited to 3250");
+            messageBox.setFixedSize(500,200);
+            while(x_count * y_count > 3250) {
+                if (x_count > y_count) --x_count;
+                else --y_count;
+            }
+        }
+        else {
+            std::cerr << "ERROR! The field size is too large. The number of cells is limited to 3250" << std::endl;
+            exit(3);
+        }
+    }
     fin.close();
 }
 
@@ -138,8 +184,8 @@ Field* Parser::create_field(const int argc, char* argv[]) {
 	int iterations_num;
 	int x_count = 20, y_count = 20;
 	std::set<std::tuple<int, int>> tuples;
-    if (this->parse(argc, argv, input_file, output_file, iterations_num))
-        this->input_read(input_file, &name, &rules, x_count, y_count, tuples);
+    if (parse(argc, argv, input_file, output_file, iterations_num))
+        input_read(input_file, &name, &rules, x_count, y_count, tuples);
     else rules = new Rules();
     return new Field(x_count, y_count, rules, tuples, name, output_file, iterations_num);
 }

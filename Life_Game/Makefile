@@ -207,7 +207,6 @@ Makefile: Life_Game.pro ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\win32-m
 		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\features\resolve_config.prf \
 		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\features\exclusive_builds_post.prf \
 		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\features\default_post.prf \
-		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\features\win32\console.prf \
 		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\features\qtquickcompiler.prf \
 		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\features\entrypoint.prf \
 		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\features\precompile_header.prf \
@@ -220,6 +219,7 @@ Makefile: Life_Game.pro ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\win32-m
 		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\features\uic.prf \
 		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\features\qmake_use.prf \
 		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\features\file_copies.prf \
+		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\features\win32\windows.prf \
 		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\features\testcase_targets.prf \
 		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\features\exceptions.prf \
 		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\features\yacc.prf \
@@ -228,11 +228,13 @@ Makefile: Life_Game.pro ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\win32-m
 		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\lib\Qt6Widgets.prl \
 		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\lib\Qt6Gui.prl \
 		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\lib\Qt6Core.prl \
+		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\lib\Qt6EntryPoint.prl \
 		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\features\build_pass.prf \
 		pic.qrc \
 		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\lib\Qt6Widgetsd.prl \
 		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\lib\Qt6Guid.prl \
-		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\lib\Qt6Cored.prl
+		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\lib\Qt6Cored.prl \
+		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\lib\Qt6EntryPointd.prl
 	$(QMAKE) -o Makefile Life_Game.pro -spec win32-msvc "CONFIG+=qtquickcompiler"
 ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\features\spec_pre.prf:
 ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\common\windows-desktop.conf:
@@ -357,7 +359,6 @@ Makefile: Life_Game.pro ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\win32-m
 ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\features\resolve_config.prf:
 ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\features\exclusive_builds_post.prf:
 ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\features\default_post.prf:
-..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\features\win32\console.prf:
 ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\features\qtquickcompiler.prf:
 ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\features\entrypoint.prf:
 ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\features\precompile_header.prf:
@@ -370,6 +371,7 @@ Makefile: Life_Game.pro ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\win32-m
 ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\features\uic.prf:
 ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\features\qmake_use.prf:
 ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\features\file_copies.prf:
+..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\features\win32\windows.prf:
 ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\features\testcase_targets.prf:
 ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\features\exceptions.prf:
 ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\features\yacc.prf:
@@ -378,11 +380,13 @@ Life_Game.pro:
 ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\lib\Qt6Widgets.prl:
 ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\lib\Qt6Gui.prl:
 ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\lib\Qt6Core.prl:
+..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\lib\Qt6EntryPoint.prl:
 ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\features\build_pass.prf:
 pic.qrc:
 ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\lib\Qt6Widgetsd.prl:
 ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\lib\Qt6Guid.prl:
 ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\lib\Qt6Cored.prl:
+..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\lib\Qt6EntryPointd.prl:
 qmake: FORCE
 	@$(QMAKE) -o Makefile Life_Game.pro -spec win32-msvc "CONFIG+=qtquickcompiler"
 

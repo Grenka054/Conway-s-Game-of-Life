@@ -35,6 +35,7 @@ private:
     std::string name;
     std::string output_file;
     int ticks_count;
+    void normalize_coordinates(int& x, int& y, const int w, const int h);
 };
 
 #endif // FIELD_H

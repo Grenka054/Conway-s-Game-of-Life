@@ -5,7 +5,7 @@ void Field::set_cell(int x, int y, char value){
     this->field[y][x] = value;
 }
 
-void normalize_coordinates(int& x, int& y, const int w, const int h){
+void Field::normalize_coordinates(int& x, int& y, const int w, const int h){
     x %= w;
     y %= h;
     if (x < 0) x = w + x;
@@ -31,7 +31,7 @@ Field::Field(int W, int H, Rules *rules, std::set<std::tuple<int, int>> tuples, 
     }
     for (std::tuple<int, int> tuple : tuples){
         int x = std::get<1>(tuple), y = std::get<0>(tuple);
-        normalize_coordinates(x, y, h, w);
+        normalize_coordinates(x, y, w, h);
         field[y][x] = 1;
     }
 }
@@ -140,7 +140,7 @@ void Field::save_to_file(QString output){
         stream << "\n";
 
         //ALIVE CELLS
-        stream << get_w() << " " << get_h() << "\n";
+        stream << get_h() << " " << get_w() << "\n";
         for (int y = 0; y < get_h(); ++y)
             for (int x = 0; x < get_w(); ++x)
                 if (field[y][x]) stream << y << " " << x << "\n";
