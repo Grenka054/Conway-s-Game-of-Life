@@ -85,14 +85,12 @@ void Field::update_state(int iter_num) {
                 int neighbour_count = 0;
                 for (signed char i = -1; i <= 1; i++) {
                     for (signed char j = -1; j <= 1; j++) {
-                        if (!i && !j) continue;
                         int neighbour_x = x + i, neighbour_y = y + j;
                         normalize_coordinates(neighbour_x, neighbour_y, this->w, this->h);
-
-                        int neighbour = field[neighbour_y][neighbour_x];
-                        if (neighbour) ++neighbour_count;
+                        neighbour_count += field[neighbour_y][neighbour_x];
                     }
                 }
+                neighbour_count -= field[y][x];
                 for (char i = 0; i < rules->get_survive().size(); i++) {
                     if (neighbour_count == rules->get_survive()[i] && field[y][x]) {
                         new_field[y][x] = 1;

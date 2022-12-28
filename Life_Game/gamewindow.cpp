@@ -42,6 +42,7 @@ GameWindow::GameWindow(Field* field, QWidget *parent):
     this->field = field;
     createLayout(field->get_w(), field->get_h());
     connect(timer, SIGNAL(timeout()), this, SLOT(newGeneration()));
+    timer->setInterval(100);
 }
 
 GameWindow::~GameWindow()
