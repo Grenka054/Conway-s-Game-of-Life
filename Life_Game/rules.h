@@ -5,9 +5,10 @@
 class Rules {
 public:
     Rules();
-    Rules(std::vector<char> born, std::vector<char> survive);
+    Rules(const std::vector<char> born, const std::vector<char> survive);
     std::vector<char> get_born();
     std::vector<char> get_survive();
+
 private:
     std::vector<char> born;
     std::vector<char> survive;

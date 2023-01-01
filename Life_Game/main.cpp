@@ -1,19 +1,18 @@
 #include "gamewindow.h"
 #include <QApplication>
-#include "field.h"
+#include "universe.h"
 #include "parser.h"
 
 int main(int argc, char* argv[])
 {
     QApplication a(argc, argv);
-    Field* field = Parser::create_field(argc, argv);
+    Universe universe = Parser::create_universe(argc, argv);
     if (Parser::is_offline()){
-        field->update_state(field->get_ticks_count());
-        field->save_to_file();
+        universe.update_state(universe.get_ticks_count());
+        universe.save_to_file();
         return 0;
     }
-    GameWindow w(field);
-    w.setFixedSize(QSize((field->get_w() + 2) * pixSize + 260, std::max((field->get_h() + 2) * pixSize, 150)));
+    GameWindow w(universe);
     w.show();
     return a.exec();
 }

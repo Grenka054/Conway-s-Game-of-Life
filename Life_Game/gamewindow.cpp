@@ -1,32 +1,30 @@
 #include "gamewindow.h"
 #include "ui_gamewindow.h"
 
-void GameWindow::createLayout(int x_count, int y_count) {
-    QList<QList<QLabel*>> labels2DVector(y_count);
+void GameWindow::createLayout(const int y_count, const int x_count) {
+    QList<QList<QLabel*>> labels2DVector(y_count, QList<QLabel*>(x_count));
     for (int i = 0; i < y_count; i++){
-        labels2DVector[i].resize(x_count);
         for (int j = 0; j < x_count; j++){
-            QLabel *lab = new QLabel();
-            char temp = field->get_field()[i][j];
-            if (temp)
-                lab->setPixmap(pix_alive);
-            else lab->setPixmap(pix_dead);
-            ui->gridLayout->addWidget(lab,i,j);
-            labels2DVector[i][j] = lab;
+            labels2DVector[i][j] = new QLabel();
+            if (universe.get_field().get_value(i, j))
+                labels2DVector[i][j]->setPixmap(pix_alive);
+            else labels2DVector[i][j]->setPixmap(pix_dead);
+            ui->gridLayout->addWidget(labels2DVector[i][j],i,j);
         }
     }
-    this->labels = &labels2DVector;
-    setWindowTitle(QString::fromStdString(field->get_name()));
+    this->labels = labels2DVector;
+    setWindowTitle(QString::fromStdString(universe.get_name()));
+    this->setFixedSize(QSize((universe.get_w() + 2) * pixSize + 260, std::max((universe.get_h() + 2) * pixSize, 150)));
 }
 
-void GameWindow::changeLabelValue(int x, int y, int value) {
-    QLabel *label = dynamic_cast<QLabel*>(ui->gridLayout->itemAt(y * this->field->get_w() + x)->widget());
+void GameWindow::changeLabelValue(const int x, const int y, const int value) {
+    QLabel *label = dynamic_cast<QLabel*>(ui->gridLayout->itemAt(y * this->universe.get_w() + x)->widget());
     if (value) label->setPixmap(pix_alive);
     else label->setPixmap(pix_dead);
     label->repaint();
 }
 
-GameWindow::GameWindow(Field* field, QWidget *parent):
+GameWindow::GameWindow(const Universe universe, QWidget *parent):
     QMainWindow(parent),
     ui(new Ui::GameWindow),
     timer(new QTimer(this))
@@ -39,17 +37,17 @@ GameWindow::GameWindow(Field* field, QWidget *parent):
     this->pix_dead = pix_dead;
     autoUpdateOn = false;
     ticksOn = false;
-    this->field = field;
-    createLayout(field->get_w(), field->get_h());
-    connect(timer, SIGNAL(timeout()), this, SLOT(newGeneration()));
-    timer->setInterval(100);
+    this->universe = universe;
+    createLayout(this->universe.get_h(), this->universe.get_w());
+    connect(&timer, SIGNAL(timeout()), this, SLOT(newGeneration()));
+    timer.setInterval(100);
 }
 
 GameWindow::~GameWindow()
 {
-    for (int i = 0; i < field->get_h(); ++i)
-        for(int j = 0; j < field->get_w(); ++j){
-            QLabel *label = dynamic_cast<QLabel*>(ui->gridLayout->itemAt(i * this->field->get_w() + j)->widget());
+    for (int i = 0; i < universe.get_h(); ++i)
+        for(int j = 0; j < universe.get_w(); ++j){
+            QLabel *label = dynamic_cast<QLabel*>(ui->gridLayout->itemAt(i * this->universe.get_w() + j)->widget());
             label->deleteLater();
         }
     delete ui;
@@ -60,11 +58,11 @@ void GameWindow::mouseEventHandler(QMouseEvent* event) {
     if (ticksOn) return;
     int cell_x = event->pos().x() / pixSize;
     int cell_y = event->pos().y() / pixSize;
-    if (cell_x < 1 || cell_x > this->field->get_w()
-            || cell_y < 1 || cell_y > this->field->get_h()) return;
+    if (cell_x < 1 || cell_x > this->universe.get_w()
+            || cell_y < 1 || cell_y > this->universe.get_h()) return;
     char newValue = 0;
     if (event->buttons() == Qt::LeftButton) newValue = 1;
-    this->field->set_cell(cell_x - 1, cell_y - 1, newValue);
+    this->universe.set_cell(cell_x - 1, cell_y - 1, newValue);
     this->changeLabelValue(cell_x - 1, cell_y - 1, newValue);
 }
 
@@ -76,11 +74,11 @@ void GameWindow::mousePressEvent(QMouseEvent* event) {
     mouseEventHandler(event);
 }
 
-void GameWindow::newGeneration(int count) {
-    this->field->update_state(count);
-    for (int y = 0; y < this->field->get_h(); ++y)
-        for (int x = 0; x < this->field->get_w(); ++x)
-            this->changeLabelValue(x, y, this->field->get_field()[y][x]);
+void GameWindow::newGeneration(const int count) {
+    this->universe.update_state(count);
+    for (int y = 0; y < this->universe.get_h(); ++y)
+        for (int x = 0; x < this->universe.get_w(); ++x)
+            this->changeLabelValue(x, y, this->universe.get_field().get_value(y, x));
 }
 
 void GameWindow::on_autoButton_clicked()
@@ -88,13 +86,13 @@ void GameWindow::on_autoButton_clicked()
     QString text;
     if (autoUpdateOn) {
         autoUpdateOn = false;
-        timer->stop();
+        timer.stop();
         text = "Start";
         this->ui->autoButton->setFont(QFont());
     }
     else {
         autoUpdateOn = true;
-        timer->start();
+        timer.start();
         text = "Stop";
         this->ui->autoButton->setFont(QFont("Segoe UI", 9, 800));
     }
@@ -103,9 +101,9 @@ void GameWindow::on_autoButton_clicked()
 
 void GameWindow::on_clearButton_clicked()
 {
-    for (int cell_y = 0; cell_y < this->field->get_h(); ++cell_y)
-        for (int cell_x = 0; cell_x < this->field->get_w(); ++cell_x) {
-            this->field->set_cell(cell_x, cell_y, 0);
+    for (int cell_y = 0; cell_y < this->universe.get_h(); ++cell_y)
+        for (int cell_x = 0; cell_x < this->universe.get_w(); ++cell_x) {
+            this->universe.set_cell(cell_x, cell_y, 0);
             this->changeLabelValue(cell_x, cell_y, 0);
         }
 
@@ -137,7 +135,8 @@ void GameWindow::on_dumpButton_clicked()
     QString filter = "Life File (*.lif *.life) ;; Text File (*.txt)";
     QString file_name = QFileDialog::getSaveFileName(this, "Save as", QDir::currentPath(), filter);
     if (file_name.isEmpty()) return;
-    field->save_to_file(file_name);
+    universe.save_to_file(file_name);
+    setWindowTitle(file_name);
 }
 
 void GameWindow::on_openButton_clicked()
@@ -146,21 +145,20 @@ void GameWindow::on_openButton_clicked()
     QString input_file = QFileDialog::getOpenFileName(this, "Open a file", QDir::currentPath(), filter);
     if (input_file.isEmpty()) return;
     std::string name;
-    Rules *rules = nullptr;
+    Rules rules;
     int x_count = 20, y_count = 20;
     std::set<std::tuple<int, int>> tuples;
-    for (int i = 0; i < field->get_h(); ++i)
-        for(int j = 0; j < field->get_w(); ++j){
-            QLabel *label = dynamic_cast<QLabel*>(ui->gridLayout->itemAt(i * this->field->get_w() + j)->widget());
+    for (int i = 0; i < universe.get_h(); ++i)
+        for(int j = 0; j < universe.get_w(); ++j){
+            QWidget *label = (ui->gridLayout->itemAt(i * this->universe.get_w() + j)->widget());
             label->deleteLater();
         }
 
-    Parser::input_read(input_file.toStdString(), &name, &rules, x_count, y_count, tuples);
+    Parser::input_read(input_file.toStdString(), name, rules, x_count, y_count, tuples);
     if (name.empty()) return;
-    delete field;
-    field = new Field(x_count, y_count, rules, tuples, name, "", 0);
-    createLayout(x_count, y_count);
-    this->setFixedSize(QSize((field->get_w() + 2) * pixSize + 260, std::max((field->get_h() + 2) * pixSize, 150)));
+    //delete universe;
+    universe = Universe(x_count, y_count, rules, tuples, name, "", 0);
+    createLayout(y_count, x_count);
     centralWidget()->repaint();
 }
 

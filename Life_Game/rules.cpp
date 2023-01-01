@@ -7,7 +7,7 @@ Rules::Rules() {
     this->survive = survive;
 }
 
-Rules::Rules(std::vector<char> born, std::vector<char> survive) {
+Rules::Rules(const std::vector<char> born, const std::vector<char> survive) {
     this->born = born;
     this->survive = survive;
 }

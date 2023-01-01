@@ -54,24 +54,28 @@ SOURCES       = field.cpp \
 		main.cpp \
 		gamewindow.cpp \
 		parser.cpp \
-		rules.cpp debug\qrc_pic.cpp \
+		rules.cpp \
+		universe.cpp debug\qrc_pic.cpp \
 		debug\moc_gamewindow.cpp
 OBJECTS       = debug\field.obj \
 		debug\main.obj \
 		debug\gamewindow.obj \
 		debug\parser.obj \
 		debug\rules.obj \
+		debug\universe.obj \
 		debug\qrc_pic.obj \
 		debug\moc_gamewindow.obj
 
 DIST          =  field.h \
 		gamewindow.h \
 		parser.h \
-		rules.h field.cpp \
+		rules.h \
+		universe.h field.cpp \
 		main.cpp \
 		gamewindow.cpp \
 		parser.cpp \
-		rules.cpp
+		rules.cpp \
+		universe.cpp
 QMAKE_TARGET  = Life_Game
 DESTDIR        = debug\ #avoid trailing-slash linebreak
 TARGET         = Life_Game.exe
@@ -128,7 +132,7 @@ all: Makefile.Debug  debug\Life_Game.exe
 
 debug\Life_Game.exe: D:\Develop\Qt\6.4.1\msvc2019_64\lib\Qt6Widgetsd.lib D:\Develop\Qt\6.4.1\msvc2019_64\lib\Qt6Guid.lib D:\Develop\Qt\6.4.1\msvc2019_64\lib\Qt6Cored.lib D:\Develop\Qt\6.4.1\msvc2019_64\lib\Qt6EntryPointd.lib ui_gamewindow.h $(OBJECTS) 
 	$(LINKER) $(LFLAGS) /MANIFEST:embed /OUT:$(DESTDIR_TARGET) @<<
-debug\field.obj debug\main.obj debug\gamewindow.obj debug\parser.obj debug\rules.obj debug\qrc_pic.obj debug\moc_gamewindow.obj
+debug\field.obj debug\main.obj debug\gamewindow.obj debug\parser.obj debug\rules.obj debug\universe.obj debug\qrc_pic.obj debug\moc_gamewindow.obj
 $(LIBS)
 <<
 
@@ -138,10 +142,10 @@ qmake: FORCE
 qmake_all: FORCE
 
 dist:
-	$(ZIP) Life_Game.zip $(SOURCES) $(DIST) Life_Game.pro ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\features\spec_pre.prf ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\common\windows-desktop.conf ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\features\win32\windows_vulkan_sdk.prf ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\common\windows-vulkan.conf ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\common\msvc-desktop.conf ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\qconfig.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_ext_freetype.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_ext_libjpeg.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_ext_libpng.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_concurrent.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_concurrent_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_core.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_core_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_dbus.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_dbus_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_designer.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_designer_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_designercomponents_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_devicediscovery_support_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_entrypoint_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_fb_support_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_freetype_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_gui.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_gui_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_harfbuzz_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_help.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_help_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_jpeg_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_labsanimation.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_labsanimation_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_labsfolderlistmodel.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_labsfolderlistmodel_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_labsqmlmodels.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_labsqmlmodels_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_labssettings.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_labssettings_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_labssharedimage.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_labssharedimage_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_labswavefrontmesh.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_labswavefrontmesh_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_linguist.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_linguist_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_network.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_network_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_opengl.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_opengl_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_openglwidgets.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_openglwidgets_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_packetprotocol_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_png_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_printsupport.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_printsupport_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_qml.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_qml_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_qmlcompiler_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_qmlcore.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_qmlcore_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_qmldebug_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_qmldom_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_qmlintegration.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_qmlintegration_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_qmllocalstorage.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_qmllocalstorage_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_qmlmodels.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_qmlmodels_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_qmltest.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_qmltest_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_qmlworkerscript.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_qmlworkerscript_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_qmlxmllistmodel.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_qmlxmllistmodel_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_quick.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_quick_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_quickcontrols2.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_quickcontrols2_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_quickcontrols2impl.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_quickcontrols2impl_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_quickcontrolstestutilsprivate_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_quickdialogs2.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_quickdialogs2_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_quickdialogs2quickimpl.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_quickdialogs2quickimpl_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_quickdialogs2utils.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_quickdialogs2utils_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_quicklayouts.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_quicklayouts_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_quickparticles_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_quickshapes_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_quicktemplates2.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_quicktemplates2_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_quicktestutilsprivate_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_quickwidgets.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_quickwidgets_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_sql.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_sql_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_svg.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_svg_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_svgwidgets.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_svgwidgets_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_testlib.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_testlib_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_tools_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_uiplugin.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_uitools.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_uitools_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_widgets.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_widgets_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_xml.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_xml_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_zlib_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\features\qt_functions.prf ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\features\qt_config.prf ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\win32-msvc\qmake.conf ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\features\spec_post.prf .qmake.stash ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\features\exclusive_builds.prf ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\common\msvc-version.conf ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\features\toolchain.prf ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\features\default_pre.prf ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\features\win32\default_pre.prf ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\features\resolve_config.prf ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\features\exclusive_builds_post.prf ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\features\default_post.prf ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\features\build_pass.prf ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\features\qtquickcompiler.prf ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\features\entrypoint.prf ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\features\precompile_header.prf ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\features\warn_on.prf ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\features\qt.prf ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\features\resources_functions.prf ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\features\resources.prf ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\features\moc.prf ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\features\win32\opengl.prf ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\features\uic.prf ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\features\qmake_use.prf ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\features\file_copies.prf ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\features\win32\windows.prf ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\features\testcase_targets.prf ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\features\exceptions.prf ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\features\yacc.prf ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\features\lex.prf Life_Game.pro pic.qrc ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\lib\Qt6Widgetsd.prl ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\lib\Qt6Guid.prl ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\lib\Qt6Cored.prl ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\lib\Qt6EntryPointd.prl   pic.qrc ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\features\data\dummy.cpp field.h gamewindow.h parser.h rules.h  field.cpp main.cpp gamewindow.cpp parser.cpp rules.cpp gamewindow.ui    
+	$(ZIP) Life_Game.zip $(SOURCES) $(DIST) Life_Game.pro ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\features\spec_pre.prf ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\common\windows-desktop.conf ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\features\win32\windows_vulkan_sdk.prf ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\common\windows-vulkan.conf ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\common\msvc-desktop.conf ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\qconfig.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_ext_freetype.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_ext_libjpeg.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_ext_libpng.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_concurrent.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_concurrent_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_core.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_core_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_dbus.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_dbus_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_designer.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_designer_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_designercomponents_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_devicediscovery_support_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_entrypoint_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_fb_support_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_freetype_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_gui.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_gui_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_harfbuzz_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_help.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_help_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_jpeg_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_labsanimation.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_labsanimation_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_labsfolderlistmodel.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_labsfolderlistmodel_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_labsqmlmodels.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_labsqmlmodels_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_labssettings.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_labssettings_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_labssharedimage.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_labssharedimage_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_labswavefrontmesh.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_labswavefrontmesh_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_linguist.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_linguist_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_network.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_network_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_opengl.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_opengl_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_openglwidgets.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_openglwidgets_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_packetprotocol_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_png_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_printsupport.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_printsupport_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_qml.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_qml_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_qmlcompiler_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_qmlcore.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_qmlcore_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_qmldebug_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_qmldom_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_qmlintegration.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_qmlintegration_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_qmllocalstorage.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_qmllocalstorage_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_qmlmodels.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_qmlmodels_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_qmltest.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_qmltest_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_qmlworkerscript.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_qmlworkerscript_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_qmlxmllistmodel.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_qmlxmllistmodel_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_quick.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_quick_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_quickcontrols2.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_quickcontrols2_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_quickcontrols2impl.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_quickcontrols2impl_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_quickcontrolstestutilsprivate_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_quickdialogs2.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_quickdialogs2_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_quickdialogs2quickimpl.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_quickdialogs2quickimpl_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_quickdialogs2utils.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_quickdialogs2utils_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_quicklayouts.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_quicklayouts_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_quickparticles_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_quickshapes_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_quicktemplates2.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_quicktemplates2_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_quicktestutilsprivate_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_quickwidgets.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_quickwidgets_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_sql.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_sql_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_svg.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_svg_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_svgwidgets.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_svgwidgets_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_testlib.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_testlib_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_tools_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_uiplugin.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_uitools.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_uitools_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_widgets.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_widgets_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_xml.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_xml_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\modules\qt_lib_zlib_private.pri ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\features\qt_functions.prf ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\features\qt_config.prf ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\win32-msvc\qmake.conf ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\features\spec_post.prf .qmake.stash ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\features\exclusive_builds.prf ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\common\msvc-version.conf ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\features\toolchain.prf ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\features\default_pre.prf ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\features\win32\default_pre.prf ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\features\resolve_config.prf ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\features\exclusive_builds_post.prf ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\features\default_post.prf ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\features\build_pass.prf ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\features\qtquickcompiler.prf ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\features\entrypoint.prf ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\features\precompile_header.prf ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\features\warn_on.prf ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\features\qt.prf ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\features\resources_functions.prf ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\features\resources.prf ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\features\moc.prf ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\features\win32\opengl.prf ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\features\uic.prf ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\features\qmake_use.prf ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\features\file_copies.prf ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\features\win32\windows.prf ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\features\testcase_targets.prf ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\features\exceptions.prf ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\features\yacc.prf ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\features\lex.prf Life_Game.pro pic.qrc ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\lib\Qt6Widgetsd.prl ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\lib\Qt6Guid.prl ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\lib\Qt6Cored.prl ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\lib\Qt6EntryPointd.prl   pic.qrc ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\features\data\dummy.cpp field.h gamewindow.h parser.h rules.h universe.h  field.cpp main.cpp gamewindow.cpp parser.cpp rules.cpp universe.cpp gamewindow.ui    
 
 clean: compiler_clean 
-	-$(DEL_FILE) debug\field.obj debug\main.obj debug\gamewindow.obj debug\parser.obj debug\rules.obj debug\qrc_pic.obj debug\moc_gamewindow.obj
+	-$(DEL_FILE) debug\field.obj debug\main.obj debug\gamewindow.obj debug\parser.obj debug\rules.obj debug\universe.obj debug\qrc_pic.obj debug\moc_gamewindow.obj
 	-$(DEL_FILE) debug\Life_Game.vc.pdb debug\Life_Game.ilk debug\Life_Game.idb
 
 distclean: clean 
@@ -346,11 +350,12 @@ debug\moc_gamewindow.cpp: gamewindow.h \
 		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtGui\QMouseEvent \
 		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtWidgets\QMessageBox \
 		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtWidgets\qmessagebox.h \
-		field.h \
+		universe.h \
 		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\QString \
 		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\QFile \
 		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\QTextStream \
 		rules.h \
+		field.h \
 		parser.h \
 		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\QCoreApplication \
 		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qcoreapplication.h \
@@ -397,100 +402,7 @@ compiler_clean: compiler_rcc_clean compiler_moc_predefs_clean compiler_moc_heade
 
 ####### Compile
 
-debug\field.obj: field.cpp field.h \
-		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\QString \
-		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qstring.h \
-		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qchar.h \
-		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qglobal.h \
-		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qconfig-bootstrapped.h \
-		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qconfig.h \
-		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qtcore-config.h \
-		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qtconfigmacros.h \
-		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qtcoreexports.h \
-		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qsystemdetection.h \
-		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qprocessordetection.h \
-		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qcompilerdetection.h \
-		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qtypeinfo.h \
-		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qcontainerfwd.h \
-		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qsysinfo.h \
-		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qlogging.h \
-		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qflags.h \
-		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qcompare_impl.h \
-		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qatomic.h \
-		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qbasicatomic.h \
-		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qatomic_bootstrap.h \
-		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qgenericatomic.h \
-		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qatomic_cxx11.h \
-		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qglobalstatic.h \
-		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qnumeric.h \
-		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qversiontagging.h \
-		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qforeach.h \
-		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qstringview.h \
-		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qbytearray.h \
-		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qrefcount.h \
-		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qnamespace.h \
-		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qtmetamacros.h \
-		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qarraydata.h \
-		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qpair.h \
-		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qarraydatapointer.h \
-		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qarraydataops.h \
-		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qcontainertools_impl.h \
-		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qbytearrayalgorithms.h \
-		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qbytearrayview.h \
-		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qstringfwd.h \
-		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qstringliteral.h \
-		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qstringalgorithms.h \
-		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qanystringview.h \
-		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qutf8stringview.h \
-		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qstringtokenizer.h \
-		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qstringbuilder.h \
-		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\QFile \
-		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qfile.h \
-		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qfiledevice.h \
-		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qiodevice.h \
-		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qiodevicebase.h \
-		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qobject.h \
-		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qobjectdefs.h \
-		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qobjectdefs_impl.h \
-		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qlist.h \
-		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qhashfunctions.h \
-		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qiterator.h \
-		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qbytearraylist.h \
-		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qstringlist.h \
-		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qalgorithms.h \
-		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qstringmatcher.h \
-		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qcoreevent.h \
-		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qscopedpointer.h \
-		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qmetatype.h \
-		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qcompare.h \
-		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qscopeguard.h \
-		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qdatastream.h \
-		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qiterable.h \
-		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qmetacontainer.h \
-		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qcontainerinfo.h \
-		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qtaggedpointer.h \
-		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qmath.h \
-		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qobject_impl.h \
-		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qbindingstorage.h \
-		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\QTextStream \
-		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qtextstream.h \
-		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qstringconverter_base.h \
-		rules.h \
-		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qfileinfo.h \
-		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qshareddata.h \
-		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qdatetime.h \
-		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qcalendar.h \
-		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qlocale.h \
-		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qvariant.h \
-		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qdebug.h \
-		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qcontiguouscache.h \
-		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qsharedpointer.h \
-		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qsharedpointer_impl.h \
-		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qmap.h \
-		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qshareddata_impl.h \
-		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qset.h \
-		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qhash.h \
-		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qvarlengtharray.h
+debug\field.obj: field.cpp field.h
 
 debug\main.obj: main.cpp gamewindow.h \
 		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtWidgets\QMainWindow \
@@ -661,11 +573,12 @@ debug\main.obj: main.cpp gamewindow.h \
 		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtGui\QMouseEvent \
 		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtWidgets\QMessageBox \
 		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtWidgets\qmessagebox.h \
-		field.h \
+		universe.h \
 		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\QString \
 		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\QFile \
 		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\QTextStream \
 		rules.h \
+		field.h \
 		parser.h \
 		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\QCoreApplication \
 		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qcoreapplication.h \
@@ -860,11 +773,12 @@ debug\gamewindow.obj: gamewindow.cpp gamewindow.h \
 		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtGui\QMouseEvent \
 		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtWidgets\QMessageBox \
 		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtWidgets\qmessagebox.h \
-		field.h \
+		universe.h \
 		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\QString \
 		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\QFile \
 		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\QTextStream \
 		rules.h \
+		field.h \
 		parser.h \
 		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\QCoreApplication \
 		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qcoreapplication.h \
@@ -906,7 +820,7 @@ debug\gamewindow.obj: gamewindow.cpp gamewindow.h \
 		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtWidgets\QWidget
 
 debug\parser.obj: parser.cpp parser.h \
-		field.h \
+		universe.h \
 		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\QString \
 		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qstring.h \
 		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qchar.h \
@@ -985,6 +899,7 @@ debug\parser.obj: parser.cpp parser.h \
 		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qtextstream.h \
 		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qstringconverter_base.h \
 		rules.h \
+		field.h \
 		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\QCoreApplication \
 		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qcoreapplication.h \
 		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qeventloop.h \
@@ -1072,6 +987,102 @@ debug\parser.obj: parser.cpp parser.h \
 		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qprocess.h
 
 debug\rules.obj: rules.cpp rules.h
+
+debug\universe.obj: universe.cpp universe.h \
+		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\QString \
+		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qstring.h \
+		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qchar.h \
+		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qglobal.h \
+		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qconfig-bootstrapped.h \
+		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qconfig.h \
+		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qtcore-config.h \
+		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qtconfigmacros.h \
+		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qtcoreexports.h \
+		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qsystemdetection.h \
+		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qprocessordetection.h \
+		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qcompilerdetection.h \
+		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qtypeinfo.h \
+		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qcontainerfwd.h \
+		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qsysinfo.h \
+		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qlogging.h \
+		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qflags.h \
+		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qcompare_impl.h \
+		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qatomic.h \
+		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qbasicatomic.h \
+		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qatomic_bootstrap.h \
+		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qgenericatomic.h \
+		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qatomic_cxx11.h \
+		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qglobalstatic.h \
+		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qnumeric.h \
+		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qversiontagging.h \
+		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qforeach.h \
+		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qstringview.h \
+		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qbytearray.h \
+		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qrefcount.h \
+		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qnamespace.h \
+		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qtmetamacros.h \
+		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qarraydata.h \
+		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qpair.h \
+		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qarraydatapointer.h \
+		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qarraydataops.h \
+		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qcontainertools_impl.h \
+		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qbytearrayalgorithms.h \
+		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qbytearrayview.h \
+		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qstringfwd.h \
+		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qstringliteral.h \
+		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qstringalgorithms.h \
+		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qanystringview.h \
+		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qutf8stringview.h \
+		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qstringtokenizer.h \
+		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qstringbuilder.h \
+		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\QFile \
+		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qfile.h \
+		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qfiledevice.h \
+		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qiodevice.h \
+		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qiodevicebase.h \
+		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qobject.h \
+		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qobjectdefs.h \
+		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qobjectdefs_impl.h \
+		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qlist.h \
+		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qhashfunctions.h \
+		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qiterator.h \
+		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qbytearraylist.h \
+		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qstringlist.h \
+		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qalgorithms.h \
+		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qstringmatcher.h \
+		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qcoreevent.h \
+		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qscopedpointer.h \
+		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qmetatype.h \
+		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qcompare.h \
+		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qscopeguard.h \
+		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qdatastream.h \
+		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qiterable.h \
+		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qmetacontainer.h \
+		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qcontainerinfo.h \
+		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qtaggedpointer.h \
+		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qmath.h \
+		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qobject_impl.h \
+		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qbindingstorage.h \
+		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\QTextStream \
+		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qtextstream.h \
+		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qstringconverter_base.h \
+		rules.h \
+		field.h \
+		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qfileinfo.h \
+		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qshareddata.h \
+		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qdatetime.h \
+		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qcalendar.h \
+		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qlocale.h \
+		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qvariant.h \
+		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qdebug.h \
+		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qcontiguouscache.h \
+		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qsharedpointer.h \
+		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qsharedpointer_impl.h \
+		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qmap.h \
+		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qshareddata_impl.h \
+		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qset.h \
+		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qhash.h \
+		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\include\QtCore\qvarlengtharray.h
 
 debug\qrc_pic.obj: debug\qrc_pic.cpp 
 

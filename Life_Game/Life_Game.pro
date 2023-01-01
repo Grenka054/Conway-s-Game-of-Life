@@ -13,13 +13,15 @@ SOURCES += \
     main.cpp \
     gamewindow.cpp \
     parser.cpp \
-    rules.cpp
+    rules.cpp \
+    universe.cpp
 
 HEADERS += \
     field.h \
     gamewindow.h \
     parser.h \
-    rules.h
+    rules.h \
+    universe.h
 
 FORMS += \
     gamewindow.ui

@@ -13,10 +13,9 @@
 #include <QFileDialog>
 #include <QMouseEvent>
 #include <QMessageBox>
-#include "field.h"
+#include "universe.h"
 #include <QTimer>
 #include "parser.h"
-
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class GameWindow; }
@@ -29,7 +28,7 @@ class GameWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    GameWindow(Field* field, QWidget *parent = nullptr);
+    GameWindow(const Universe universe, QWidget *parent = nullptr);
     ~GameWindow();
     void mouseMoveEvent(QMouseEvent* event) override;
     void mousePressEvent(QMouseEvent* event) override;
@@ -39,30 +38,24 @@ public slots:
 
 private slots:
     void on_autoButton_clicked();
-
     void on_clearButton_clicked();
-
     void on_exitButton_clicked();
-
     void on_tickButton_clicked();
-
     void on_dumpButton_clicked();
-
     void on_openButton_clicked();
-
     void on_helpButton_clicked();
 
 private:
-    void createLayout(int x_count, int y_count);
-    void changeLabelValue(int x, int y, int value);
+    void createLayout(const int x_count, const int y_count);
+    void changeLabelValue(const int x, const int y, const int value);
     void mouseEventHandler(QMouseEvent* event);
     Ui::GameWindow *ui;
-    QTimer* timer;
+    QTimer timer;
     QPixmap pix_alive;
     QPixmap pix_dead;
     bool autoUpdateOn;
     bool ticksOn;
-    Field *field;
-    QList<QList<QLabel*>>* labels;
+    Universe universe;
+    QList<QList<QLabel*>> labels;
 };
 #endif // GAMEWINDOW_H

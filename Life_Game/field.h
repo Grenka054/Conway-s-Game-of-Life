@@ -1,41 +1,18 @@
 #ifndef FIELD_H
 #define FIELD_H
-#include <set>
-#include <tuple>
-#include <string>
-#include <stdexcept>
-#include <fstream>
-#include <QString>
-#include <QFile>
-#include <QTextStream>
-#include "rules.h"
 
-class Field {
+#include <vector>
+
+class Field
+{
 public:
-    Field(int W, int H, Rules *rules, std::set<std::tuple<int, int>> tuples, std::string name,
-          std::string output_file, int ticks_count); //throw
-    ~Field();
-    char** get_field();
-    void update_state(int iter_num);
-    void set_cell(int x, int y, char value);
-    int get_h();
-    int get_w();
-    Rules* get_rules();
-    std::string get_output_file();
-    int get_ticks_count();
-    std::string get_name();
-    void save_to_file(QString output);
-    void save_to_file();
+    Field();
+    Field(const int h, const int w);
+    char get_value(const int y, const int x);
+    void set_value(const int y, const int x, const char new_value);
 
 private:
-    char** field;
-    int h;
-    int w;
-    Rules* rules;
-    std::string name;
-    std::string output_file;
-    int ticks_count;
-    void normalize_coordinates(int& x, int& y, const int w, const int h);
+    std::vector<std::vector<char>> vec;
 };
 
 #endif // FIELD_H

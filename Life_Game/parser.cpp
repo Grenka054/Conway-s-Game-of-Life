@@ -8,7 +8,7 @@ bool Parser::parse(const int argc, char* argv[], std::string& input_file, std::s
 	input_file = "", output_file = "";
 	iterations_num = 0;
 	if (argc == 1) return false;
-    if (argc == 2){
+    if (argc == 2) {
         input_file = argv[1];
         return true;
     }
@@ -52,7 +52,7 @@ bool Parser::is_offline(){
     return list.length() > 2;
 }
 
-void Parser::input_read(const std::string input, std::string* name, Rules** rules, int& x_count, int& y_count,
+void Parser::input_read(const std::string input, std::string& name, Rules& rules, int& x_count, int& y_count,
 	std::set<std::tuple<int, int>>& tuples) {
 	std::ifstream fin(input);
 	bool rules_got = false, name_got = false;
@@ -76,7 +76,6 @@ void Parser::input_read(const std::string input, std::string* name, Rules** rule
             QMessageBox messageBox;
             messageBox.warning(0,"Warning","This file type is not supported");
             messageBox.setFixedSize(500,200);
-            *name = "";
         }
         else {
             std::cerr << "ERROR! This file type is not supported" << std::endl;
@@ -92,7 +91,7 @@ void Parser::input_read(const std::string input, std::string* name, Rules** rule
 
 		// NAME
 		if (buf[1] == 'N') {
-            *name = buf.erase(0, 3);
+            name = buf.erase(0, 3);
 			name_got = true;
 		}
 
@@ -109,14 +108,14 @@ void Parser::input_read(const std::string input, std::string* name, Rules** rule
 			std::vector<char> survive{};
 			for (char digit : buf)
 				survive.push_back(digit - '0');
-			*rules = new Rules(born, survive);
+            rules = Rules(born, survive);
 		}
 	}
 	while (buf.empty() && !fin.eof()) {
 		getline(fin, buf);
 	}
 
-	// FIELD SIZE
+    // universe SIZE
 	std::stringstream bufStream(buf);
 	getline(bufStream, buf, ' ');
     y_count = stoi(buf);
@@ -133,13 +132,15 @@ void Parser::input_read(const std::string input, std::string* name, Rules** rule
         y = stoi(buf);
 		getline(bufStream, buf, ' ');
         x = stoi(buf);
-        if (!std::get<1>(tuples.insert(std::tuple<int, int>(y, x))))
-            if (!Parser::is_offline()) {
+        if (!std::get<1>(tuples.insert(std::tuple<int, int>(y, x)))) {
+            if (Parser::is_offline())
+                std::cerr << "WARNING! Living cells are repetitive" << std::endl;
+            else {
                 QMessageBox messageBox;
                 messageBox.warning(0,"Warning","Living cells are repetitive");
                 messageBox.setFixedSize(500,200);
             }
-            else std::cerr << "WARNING! Living cells are repetitive" << std::endl;
+        }
 	}
 	fin.close();
 	if (!name_got) {
@@ -149,7 +150,7 @@ void Parser::input_read(const std::string input, std::string* name, Rules** rule
             messageBox.setFixedSize(500,200);
         }
         else std::cerr << "WARNING! The name hasn't founded" << std::endl;
-        *name = "No name";
+        name = "No name";
 	}
 	if (!rules_got) {
         if (!Parser::is_offline()) {
@@ -158,12 +159,11 @@ void Parser::input_read(const std::string input, std::string* name, Rules** rule
             messageBox.setFixedSize(500,200);
         }
         else std::cerr << "WARNING! The rules hasn't founded" << std::endl;
-		*rules = new Rules();
 	}
     if (x_count * y_count > 3250) {
         if (!Parser::is_offline()) {
             QMessageBox messageBox;
-            messageBox.warning(0,"Warning","The field size is too large. The number of cells is limited to 3250");
+            messageBox.warning(0,"Warning","The universe size is too large. The number of cells is limited to 3250");
             messageBox.setFixedSize(500,200);
             while(x_count * y_count > 3250) {
                 if (x_count > y_count) --x_count;
@@ -171,21 +171,20 @@ void Parser::input_read(const std::string input, std::string* name, Rules** rule
             }
         }
         else {
-            std::cerr << "ERROR! The field size is too large. The number of cells is limited to 3250" << std::endl;
+            std::cerr << "ERROR! The universe size is too large. The number of cells is limited to 3250" << std::endl;
             exit(3);
         }
     }
     fin.close();
 }
 
-Field* Parser::create_field(const int argc, char* argv[]) {
+Universe Parser::create_universe(const int argc, char* argv[]) {
     std::string input_file, output_file, name = "No name";
-    Rules* rules = nullptr;
+    Rules rules;
 	int iterations_num;
 	int x_count = 20, y_count = 20;
 	std::set<std::tuple<int, int>> tuples;
     if (parse(argc, argv, input_file, output_file, iterations_num))
-        input_read(input_file, &name, &rules, x_count, y_count, tuples);
-    else rules = new Rules();
-    return new Field(x_count, y_count, rules, tuples, name, output_file, iterations_num);
+        input_read(input_file, name, rules, x_count, y_count, tuples);
+    return Universe(x_count, y_count, rules, tuples, name, output_file, iterations_num);
 }
