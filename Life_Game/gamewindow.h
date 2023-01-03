@@ -2,60 +2,35 @@
 #define GAMEWINDOW_H
 
 #include <QMainWindow>
-#include <QLabel>
-#include <QTimer>
-#include <QGridLayout>
-#include <QPushButton>
-#include <QLabel>
-#include <QMainWindow>
-#include <QPixmap>
-#include <QDebug>
-#include <QFileDialog>
-#include <QMouseEvent>
-#include <QMessageBox>
-#include "universe.h"
-#include <QTimer>
-#include "parser.h"
+#include "gamewidget.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class GameWindow; }
 QT_END_NAMESPACE
-
-const int pixSize = 15;
 
 class GameWindow : public QMainWindow
 {
     Q_OBJECT
 
 public:
-    GameWindow(const Universe universe, QWidget *parent = nullptr);
+    GameWindow(QWidget *parent = nullptr);
     ~GameWindow();
-    void mouseMoveEvent(QMouseEvent* event) override;
-    void mousePressEvent(QMouseEvent* event) override;
-
-public slots:
-    void newGeneration(int count=1);
 
 private slots:
     void on_autoButton_clicked();
-    void on_clearButton_clicked();
-    void on_exitButton_clicked();
     void on_tickButton_clicked();
     void on_dumpButton_clicked();
     void on_openButton_clicked();
     void on_helpButton_clicked();
+    void on_speedSlider_valueChanged(int value);
+    void on_xSizeSlider_valueChanged(int value);
+    void on_ySizeSlider_valueChanged(int value);
+    void on_checkBox_stateChanged(int arg1);
 
 private:
-    void createLayout(const int x_count, const int y_count);
-    void changeLabelValue(const int x, const int y, const int value);
-    void mouseEventHandler(QMouseEvent* event);
     Ui::GameWindow *ui;
-    QTimer timer;
-    QPixmap pix_alive;
-    QPixmap pix_dead;
-    bool autoUpdateOn;
-    bool ticksOn;
-    Universe universe;
-    QList<QList<QLabel*>> labels;
+    GameWidget* game;
+    bool keep_proportions;
+
 };
 #endif // GAMEWINDOW_H

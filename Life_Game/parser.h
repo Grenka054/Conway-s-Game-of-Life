@@ -1,24 +1,16 @@
 #pragma once
-#include <iostream>
 #include <string>
-#include <vector>
-#include "universe.h"
-#include "rules.h"
-#include <fstream>
-#include <sstream>
 #include <set>
 #include <tuple>
-#include <QCoreApplication>
-#include <QMessageBox>
+#include "universe.h"
+#include "rules.h"
 
 class Parser
 {
 public:
-    Parser();
-    static bool parse(const int argc, char* argv[], std::string& input_file, std::string& output_file, int& iterations_num);
-    static void input_read(const std::string input, std::string& name, Rules& rules, int& x_count, int& y_count,
+    static bool parse(std::string& input_file, std::string& output_file, int& iterations_num);
+    static void input_read(const std::string input, std::string& name, Rules& rules, int& y_count, int& x_count,
 		std::set<std::tuple<int, int>>& tuples);
-    static Universe create_universe(const int argc, char* argv[]);
     static bool is_offline();
 };
 

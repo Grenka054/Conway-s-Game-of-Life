@@ -1,21 +1,25 @@
 #include "parser.h"
- #include <QProcess>
+#include <vector>
+#include <fstream>
+#include <sstream>
+#include <QCoreApplication>
+#include <QMessageBox>
+#include <iostream>
 
-Parser::Parser() {
-}
-
-bool Parser::parse(const int argc, char* argv[], std::string& input_file, std::string& output_file, int& iterations_num) {
+bool Parser::parse(std::string& input_file, std::string& output_file, int& iterations_num) {
+    int argc = QCoreApplication::arguments().count();
+    QList argv = QCoreApplication::arguments();
 	input_file = "", output_file = "";
 	iterations_num = 0;
 	if (argc == 1) return false;
     if (argc == 2) {
-        input_file = argv[1];
+        input_file = argv[1].toStdString();
         return true;
     }
-    input_file = argv[1];
+    input_file = argv[1].toStdString();
     for (int i = 2; i < argc; i++)
     {
-        std::string arg = argv[i];
+        std::string arg = argv[i].toStdString();
         std::string name_arg = "--iterations=";
         if (!arg.find(name_arg)) {
             iterations_num = std::stoi(arg.erase(0, name_arg.length()));
@@ -23,7 +27,7 @@ bool Parser::parse(const int argc, char* argv[], std::string& input_file, std::s
         }
         name_arg = "-i";
         if (!arg.compare(name_arg)) {
-            iterations_num = std::stoi(argv[i + 1]);
+            iterations_num = argv[i + 1].toInt();
             ++i;
             continue;
         }
@@ -34,7 +38,7 @@ bool Parser::parse(const int argc, char* argv[], std::string& input_file, std::s
         }
         name_arg = "-o";
         if (!arg.compare(name_arg)) {
-            output_file = argv[i + 1];
+            output_file = argv[i + 1].toStdString();
             ++i;
             continue;
         }
@@ -52,7 +56,7 @@ bool Parser::is_offline(){
     return list.length() > 2;
 }
 
-void Parser::input_read(const std::string input, std::string& name, Rules& rules, int& x_count, int& y_count,
+void Parser::input_read(const std::string input, std::string& name, Rules& rules, int& y_count, int& x_count,
 	std::set<std::tuple<int, int>>& tuples) {
 	std::ifstream fin(input);
 	bool rules_got = false, name_got = false;
@@ -160,31 +164,5 @@ void Parser::input_read(const std::string input, std::string& name, Rules& rules
         }
         else std::cerr << "WARNING! The rules hasn't founded" << std::endl;
 	}
-    if (x_count * y_count > 3250) {
-        if (!Parser::is_offline()) {
-            QMessageBox messageBox;
-            messageBox.warning(0,"Warning","The universe size is too large. The number of cells is limited to 3250");
-            messageBox.setFixedSize(500,200);
-            while(x_count * y_count > 3250) {
-                if (x_count > y_count) --x_count;
-                else --y_count;
-            }
-        }
-        else {
-            std::cerr << "ERROR! The universe size is too large. The number of cells is limited to 3250" << std::endl;
-            exit(3);
-        }
-    }
     fin.close();
-}
-
-Universe Parser::create_universe(const int argc, char* argv[]) {
-    std::string input_file, output_file, name = "No name";
-    Rules rules;
-	int iterations_num;
-	int x_count = 20, y_count = 20;
-	std::set<std::tuple<int, int>> tuples;
-    if (parse(argc, argv, input_file, output_file, iterations_num))
-        input_read(input_file, name, rules, x_count, y_count, tuples);
-    return Universe(x_count, y_count, rules, tuples, name, output_file, iterations_num);
 }

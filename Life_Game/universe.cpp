@@ -1,9 +1,10 @@
 #include "universe.h"
-#include "qfileinfo.h"
-
-void Universe::set_cell(const int x, const int y, const char value){
-    field.set_value(y, x, value);
-}
+#include <QFileInfo>
+#include <stdexcept>
+#include <fstream>
+#include <QFile>
+#include <QTextStream>
+#include "parser.h"
 
 void Universe::normalize_coordinates(int& x, int& y, const int w, const int h){
     x %= w;
@@ -16,7 +17,7 @@ void Universe::normalize_coordinates(int& x, int& y, const int w, const int h){
 
 Universe::Universe() {}
 
-Universe::Universe(const int W, const int H, const Rules rules, const std::set<std::tuple<int, int>> tuples,
+Universe::Universe(const int H, const int W, const Rules rules, const std::set<std::tuple<int, int>> tuples,
                    const std::string name, const std::string output_file, const int ticks_count) {
     h = H;
     w = W;
@@ -30,10 +31,6 @@ Universe::Universe(const int W, const int H, const Rules rules, const std::set<s
         normalize_coordinates(x, y, w, h);
         field.set_value(y, x, 1);
     }
-}
-
-Field Universe::get_field() {
-    return field;
 }
 
 Rules Universe::get_rules() {
@@ -52,6 +49,14 @@ int Universe::get_w(){
     return w;
 }
 
+void Universe::set_h(int h){
+    this->h = h;
+}
+
+void Universe::set_w(int w){
+    this->w = w;
+}
+
 std::string Universe::get_name(){
     return name;
 }
@@ -61,8 +66,10 @@ std::string Universe::get_output_file(){
 }
 
 void Universe::update_state(const int iter_num) {
+    int count = iter_num;
+    if (count < 1) count = 1;
     bool nothing_changed = false;
-    for (int iter = 0; iter < iter_num; ++iter) {
+    for (int iter = 0; iter < count; ++iter) {
         if (nothing_changed) return;
         nothing_changed = true;
         Field new_field(h, w);
@@ -127,4 +134,15 @@ void Universe::save_to_file(const QString output){
                 if (field.get_value(y, x)) stream << y << " " << x << "\n";
         file.close();
     }
+}
+
+Universe Universe::create_universe() {
+    std::string input_file, output_file, name = "No name";
+    Rules rules;
+    int iterations_num;
+    int x_count = 20, y_count = 20;
+    std::set<std::tuple<int, int>> tuples;
+    if (Parser::parse(input_file, output_file, iterations_num))
+        Parser::input_read(input_file, name, rules, x_count, y_count, tuples);
+    return Universe(x_count, y_count, rules, tuples, name, output_file, iterations_num);
 }

@@ -15,3 +15,10 @@ char Field::get_value(const int y, const int x) {
 void Field::set_value(const int y, const int x, const char new_value){
     this->vec[y][x] = new_value;
 }
+
+void Field::resize(int new_h, int new_w){
+    vec.resize(new_h, std::vector<char>(new_w, 0));
+    for (int i = 0; i < new_h; ++i) {
+        vec[i].resize(new_w, 0);
+    }
+}

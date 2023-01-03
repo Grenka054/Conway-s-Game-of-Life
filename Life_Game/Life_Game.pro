@@ -10,6 +10,7 @@ CONFIG += c++17
 
 SOURCES += \
     field.cpp \
+    gamewidget.cpp \
     main.cpp \
     gamewindow.cpp \
     parser.cpp \
@@ -18,6 +19,7 @@ SOURCES += \
 
 HEADERS += \
     field.h \
+    gamewidget.h \
     gamewindow.h \
     parser.h \
     rules.h \
@@ -31,7 +33,6 @@ qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
-RESOURCES += \
-    pic.qrc
+RESOURCES +=
 
 DISTFILES +=

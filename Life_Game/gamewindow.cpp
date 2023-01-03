@@ -1,133 +1,55 @@
 #include "gamewindow.h"
 #include "ui_gamewindow.h"
+#include <QFileDialog>
+#include <QMessageBox>
+#include "parser.h"
 
-void GameWindow::createLayout(const int y_count, const int x_count) {
-    QList<QList<QLabel*>> labels2DVector(y_count, QList<QLabel*>(x_count));
-    for (int i = 0; i < y_count; i++){
-        for (int j = 0; j < x_count; j++){
-            labels2DVector[i][j] = new QLabel();
-            if (universe.get_field().get_value(i, j))
-                labels2DVector[i][j]->setPixmap(pix_alive);
-            else labels2DVector[i][j]->setPixmap(pix_dead);
-            ui->gridLayout->addWidget(labels2DVector[i][j],i,j);
-        }
-    }
-    this->labels = labels2DVector;
-    setWindowTitle(QString::fromStdString(universe.get_name()));
-    this->setFixedSize(QSize((universe.get_w() + 2) * pixSize + 260, std::max((universe.get_h() + 2) * pixSize, 150)));
-}
-
-void GameWindow::changeLabelValue(const int x, const int y, const int value) {
-    QLabel *label = dynamic_cast<QLabel*>(ui->gridLayout->itemAt(y * this->universe.get_w() + x)->widget());
-    if (value) label->setPixmap(pix_alive);
-    else label->setPixmap(pix_dead);
-    label->repaint();
-}
-
-GameWindow::GameWindow(const Universe universe, QWidget *parent):
+GameWindow::GameWindow(QWidget *parent):
     QMainWindow(parent),
     ui(new Ui::GameWindow),
-    timer(new QTimer(this))
+    game(new GameWidget(this))
 {
     ui->setupUi(this);
-
-    QPixmap pix_alive(":/pics/pics/cell_alive.png");
-    this->pix_alive = pix_alive;
-    QPixmap pix_dead(":/pics/pics/cell_dead.png");
-    this->pix_dead = pix_dead;
-    autoUpdateOn = false;
-    ticksOn = false;
-    this->universe = universe;
-    createLayout(this->universe.get_h(), this->universe.get_w());
-    connect(&timer, SIGNAL(timeout()), this, SLOT(newGeneration()));
-    timer.setInterval(100);
+    connect(ui->clearButton, SIGNAL(clicked()), game, SLOT(clear_field()));
+    connect(ui->autoButton, SIGNAL(clicked()), game, SLOT(switch_auto_update()));
+    ui->gameLayout->addWidget(game);
+    keep_proportions = false;
+    emit on_xSizeSlider_valueChanged(ui->xSizeSlider->sliderPosition());
+    emit on_ySizeSlider_valueChanged(ui->ySizeSlider->sliderPosition());
+    emit on_speedSlider_valueChanged(ui->speedSlider->sliderPosition());
+    keep_proportions = true;
+    update();
 }
 
 GameWindow::~GameWindow()
 {
-    for (int i = 0; i < universe.get_h(); ++i)
-        for(int j = 0; j < universe.get_w(); ++j){
-            QLabel *label = dynamic_cast<QLabel*>(ui->gridLayout->itemAt(i * this->universe.get_w() + j)->widget());
-            label->deleteLater();
-        }
     delete ui;
-}
-
-void GameWindow::mouseEventHandler(QMouseEvent* event) {
-    if (autoUpdateOn) return;
-    if (ticksOn) return;
-    int cell_x = event->pos().x() / pixSize;
-    int cell_y = event->pos().y() / pixSize;
-    if (cell_x < 1 || cell_x > this->universe.get_w()
-            || cell_y < 1 || cell_y > this->universe.get_h()) return;
-    char newValue = 0;
-    if (event->buttons() == Qt::LeftButton) newValue = 1;
-    this->universe.set_cell(cell_x - 1, cell_y - 1, newValue);
-    this->changeLabelValue(cell_x - 1, cell_y - 1, newValue);
-}
-
-void GameWindow::mouseMoveEvent(QMouseEvent* event) {
-    mouseEventHandler(event);
-}
-
-void GameWindow::mousePressEvent(QMouseEvent* event) {
-    mouseEventHandler(event);
-}
-
-void GameWindow::newGeneration(const int count) {
-    this->universe.update_state(count);
-    for (int y = 0; y < this->universe.get_h(); ++y)
-        for (int x = 0; x < this->universe.get_w(); ++x)
-            this->changeLabelValue(x, y, this->universe.get_field().get_value(y, x));
+    delete game;
 }
 
 void GameWindow::on_autoButton_clicked()
 {
     QString text;
-    if (autoUpdateOn) {
-        autoUpdateOn = false;
-        timer.stop();
-        text = "Start";
-        this->ui->autoButton->setFont(QFont());
-    }
-    else {
-        autoUpdateOn = true;
-        timer.start();
+    QFont font;
+    if (ui->autoButton->text().compare("Stop")) {
         text = "Stop";
-        this->ui->autoButton->setFont(QFont("Segoe UI", 9, 800));
+        font = QFont("Segoe UI", 9, 800);
     }
+    else text = "Start";
+
+    this->ui->autoButton->setFont(font);
     this->ui->autoButton->setText(text);
-}
-
-void GameWindow::on_clearButton_clicked()
-{
-    for (int cell_y = 0; cell_y < this->universe.get_h(); ++cell_y)
-        for (int cell_x = 0; cell_x < this->universe.get_w(); ++cell_x) {
-            this->universe.set_cell(cell_x, cell_y, 0);
-            this->changeLabelValue(cell_x, cell_y, 0);
-        }
-
-    if (autoUpdateOn)
-        emit on_autoButton_clicked();
-}
-
-void GameWindow::on_exitButton_clicked()
-{
-    exit(0);
 }
 
 void GameWindow::on_tickButton_clicked()
 {
-    ticksOn = true;
-    int count = ui->tickLine->text().toInt();
-    if (count < 1) count = 1;
-    ui->tickButton->setText("Counting...");
-    ui->buttonsWidget->setDisabled(true);
+    QString text;
+    this->ui->tickButton->setText("Counting...");
+    ui->buttonsFrame->setDisabled(true);
     ui->tickButton->repaint();
-    newGeneration(count);
-    ui->tickButton->setText("Tick");
-    ui->buttonsWidget->setDisabled(false);
-    ticksOn = false;
+    game->newGeneration(ui->tickLine->text().toInt());
+    ui->buttonsFrame->setDisabled(false);
+    this->ui->tickButton->setText("Tick");
 }
 
 void GameWindow::on_dumpButton_clicked()
@@ -135,7 +57,7 @@ void GameWindow::on_dumpButton_clicked()
     QString filter = "Life File (*.lif *.life) ;; Text File (*.txt)";
     QString file_name = QFileDialog::getSaveFileName(this, "Save as", QDir::currentPath(), filter);
     if (file_name.isEmpty()) return;
-    universe.save_to_file(file_name);
+    game->universe.save_to_file(file_name);
     setWindowTitle(file_name);
 }
 
@@ -148,18 +70,14 @@ void GameWindow::on_openButton_clicked()
     Rules rules;
     int x_count = 20, y_count = 20;
     std::set<std::tuple<int, int>> tuples;
-    for (int i = 0; i < universe.get_h(); ++i)
-        for(int j = 0; j < universe.get_w(); ++j){
-            QWidget *label = (ui->gridLayout->itemAt(i * this->universe.get_w() + j)->widget());
-            label->deleteLater();
-        }
 
-    Parser::input_read(input_file.toStdString(), name, rules, x_count, y_count, tuples);
+    Parser::input_read(input_file.toStdString(), name, rules, y_count, x_count, tuples);
     if (name.empty()) return;
-    //delete universe;
-    universe = Universe(x_count, y_count, rules, tuples, name, "", 0);
-    createLayout(y_count, x_count);
-    centralWidget()->repaint();
+    game->universe = Universe(y_count, x_count, rules, tuples, name, "", 0);
+    ui->xSizeSlider->setSliderPosition(x_count);
+    ui->ySizeSlider->setSliderPosition(y_count);
+    //centralWidget()->repaint();
+    update();
 }
 
 void GameWindow::on_helpButton_clicked()
@@ -168,4 +86,46 @@ void GameWindow::on_helpButton_clicked()
     msgBox.setWindowTitle("Help");
     msgBox.setText("Use the left mouse button to draw live cells and use the right mouse button to draw dead cells. Feel like in Paint =)");
     msgBox.exec();
+}
+
+void GameWindow::on_speedSlider_valueChanged(int value)
+{
+    game->setFPS(value);
+    ui->FPSLabel->setNum(value);
+}
+
+
+void GameWindow::on_xSizeSlider_valueChanged(int value)
+{
+    double k = value / ui->xSizeLabel->text().toDouble();
+    ui->xSizeLabel->setNum(value);
+    game->universe.set_w(value);
+    game->universe.field.resize(game->universe.get_h(), value);
+    if (keep_proportions) {
+        keep_proportions = false;
+        ui->ySizeSlider->setSliderPosition(round(k * ui->ySizeLabel->text().toDouble()));
+        keep_proportions = true;
+    }
+    update();
+}
+
+
+void GameWindow::on_ySizeSlider_valueChanged(int value)
+{
+    double k = value / ui->ySizeLabel->text().toDouble();
+    ui->ySizeLabel->setNum(value);
+    game->universe.set_h(value);
+    game->universe.field.resize(value, game->universe.get_w());
+    if (keep_proportions) {
+        keep_proportions = false;
+        ui->xSizeSlider->setSliderPosition(round(k * ui->xSizeLabel->text().toDouble()));
+        keep_proportions = true;
+    }
+    update();
+}
+
+
+void GameWindow::on_checkBox_stateChanged(int arg1)
+{
+    keep_proportions = arg1;
 }

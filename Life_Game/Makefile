@@ -230,7 +230,6 @@ Makefile: Life_Game.pro ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\win32-m
 		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\lib\Qt6Core.prl \
 		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\lib\Qt6EntryPoint.prl \
 		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\features\build_pass.prf \
-		pic.qrc \
 		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\lib\Qt6Widgetsd.prl \
 		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\lib\Qt6Guid.prl \
 		..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\lib\Qt6Cored.prl \
@@ -382,7 +381,6 @@ Life_Game.pro:
 ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\lib\Qt6Core.prl:
 ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\lib\Qt6EntryPoint.prl:
 ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\mkspecs\features\build_pass.prf:
-pic.qrc:
 ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\lib\Qt6Widgetsd.prl:
 ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\lib\Qt6Guid.prl:
 ..\..\..\..\Develop\Qt\6.4.1\msvc2019_64\lib\Qt6Cored.prl:
